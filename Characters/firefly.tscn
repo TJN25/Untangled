@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://booqe2easuja0"]
+
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://hitbox_component.tscn" id="1_14wmb"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://health_component.tscn" id="1_dhy1r"]
+[ext_resource type="Script" path="res://Scripts/Characters/firefly.gd" id="1_ryakh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_anjc3"]
+
+[sub_resource type="Gradient" id="Gradient_vfolu"]
+offsets = PackedFloat32Array(0, 0.626374)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cirw8"]
+gradient = SubResource("Gradient_vfolu")
+fill = 1
+fill_from = Vector2(0.465812, 0.495726)
+fill_to = Vector2(1, 1)
+
+[node name="Firefly" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_ryakh")
+SPEED = 100.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_anjc3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+color = Color(1, 1, 0.282353, 0.341176)
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_dhy1r")]
+MAX_HEALTH = 1.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("1_14wmb")]
+collision_mask = 0
+health_component = NodePath("../HealthComponent")
+hitbox_category = "firefly"
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_anjc3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.8, 0.501961, 1)
+energy = 0.2
+texture = SubResource("GradientTexture2D_cirw8")
+
+[node name="direction_timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="direction_timer" to="." method="_on_direction_timer_timeout"]

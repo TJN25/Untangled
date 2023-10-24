@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=3 uid="uid://c7ldhiepki8gn"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/ball.gd" id="1_4lwrw"]
+[ext_resource type="Texture2D" uid="uid://suyyb1wbaxba" path="res://assets/Mushroom sprite test.png" id="1_hxbcn"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://hitbox_component.tscn" id="3_2nti5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqjsd"]
+atlas = ExtResource("1_hxbcn")
+region = Rect2(6, 204, 49, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjium"]
+atlas = ExtResource("1_hxbcn")
+region = Rect2(6, 351, 49, 49)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r3dp6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqjsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjium")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pee33"]
+radius = 6.0
+
+[sub_resource type="Gradient" id="Gradient_ijmqp"]
+offsets = PackedFloat32Array(0, 0.788462)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4jd31"]
+gradient = SubResource("Gradient_ijmqp")
+fill = 1
+fill_from = Vector2(0.508547, 0.525641)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hsnnh"]
+radius = 6.08276
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4pbp"]
+radius = 32.0
+
+[node name="Ball" type="CharacterBody2D"]
+collision_layer = 12
+collision_mask = 5
+wall_min_slide_angle = 0.0
+floor_stop_on_slope = false
+script = ExtResource("1_4lwrw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.306122, 0.306122)
+sprite_frames = SubResource("SpriteFrames_r3dp6")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+light_mask = 4
+visibility_layer = 4
+shape = SubResource("CircleShape2D_pee33")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 200.0
+
+[node name="NavTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1.5, 1.5)
+color = Color(0.87451, 0.647059, 0.298039, 1)
+energy = 2.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_4jd31")
+texture_scale = 10.0
+
+[node name="blast_timer" type="Timer" parent="."]
+
+[node name="blast_enemies_cooldown" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="DetectionZone" type="Area2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_hsnnh")
+
+[node name="LeftWallRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(-38, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RightWallRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(38, 2.08165e-12)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_2nti5")]
+hitbox_category = "ball"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_b4pbp")
+
+[connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]
+[connection signal="timeout" from="blast_timer" to="." method="_on_blast_timer_timeout"]
+[connection signal="timeout" from="blast_enemies_cooldown" to="." method="_on_blast_enemies_cooldown_timeout"]
+[connection signal="area_entered" from="DetectionZone" to="." method="_on_detection_zone_area_entered"]
+[connection signal="area_exited" from="DetectionZone" to="." method="_on_detection_zone_area_exited"]

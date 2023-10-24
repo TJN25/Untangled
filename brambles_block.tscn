@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5buk5ohdsms"]
+
+[ext_resource type="TileSet" uid="uid://68dpfo2b51x4" path="res://Levels/test_level.tres" id="1_e15ir"]
+[ext_resource type="Script" path="res://Scripts/brambles_block.gd" id="1_q6xll"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://health_component.tscn" id="3_o0ibl"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://hitbox_component.tscn" id="4_ttvmh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52r63"]
+size = Vector2(56, 54)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e082g"]
+radius = 28.0713
+
+[node name="BramblesBlock" type="Node2D"]
+script = ExtResource("1_q6xll")
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -4
+tile_set = ExtResource("1_e15ir")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(0, 1048581, 1, 65536, 1048581, 2, 131072, 1048581, 3, 1, 1114117, 1, 65537, 1114117, 2, 131073, 1114117, 3, 2, 1179653, 1, 65538, 1179653, 2, 131074, 1179653, 3)
+
+[node name="AttackComponent" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent"]
+position = Vector2(24, 24)
+shape = SubResource("RectangleShape2D_52r63")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_o0ibl")]
+MAX_HEALTH = 15.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_ttvmh")]
+collision_layer = 7
+collision_mask = 7
+health_component = NodePath("../HealthComponent")
+hitbox_category = "brambles"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(24, 24)
+shape = SubResource("CircleShape2D_e082g")
+
+[node name="RecoverHealth" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="area_entered" from="AttackComponent" to="." method="_on_attack_component_area_entered"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
+[connection signal="area_exited" from="HitboxComponent" to="." method="_on_hitbox_component_area_exited"]
+[connection signal="timeout" from="RecoverHealth" to="." method="_on_recover_health_timeout"]

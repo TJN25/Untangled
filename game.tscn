@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://bv3d5uu37jkb3"]
+
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_0gyat"]
+[ext_resource type="PackedScene" uid="uid://demj7jaylj26t" path="res://Levels/Level1.tscn" id="1_rnchy"]
+[ext_resource type="PackedScene" uid="uid://wgpptu0x2ceb" path="res://pause_menu.tscn" id="3_k81l3"]
+[ext_resource type="PackedScene" uid="uid://cb3d3v4hwsa8n" path="res://main_menu.tscn" id="4_g55l2"]
+[ext_resource type="PackedScene" uid="uid://c32biawew2xi3" path="res://level_manager.tscn" id="5_4dons"]
+
+[node name="GameManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_0gyat")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" node_paths=PackedStringArray("game_manager") instance=ExtResource("3_k81l3")]
+game_manager = NodePath("../..")
+
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("4_g55l2")]
+LEVEL_MANAGER = ExtResource("5_4dons")
+LEVEL_1 = ExtResource("1_rnchy")
+
+[connection signal="toggle_game_paused" from="." to="CanvasLayer/PauseMenu" method="_on_game_toggle_game_paused"]
+[connection signal="pause_button_pressed" from="CanvasLayer/PauseMenu" to="." method="_on_pause_menu_pause_button_pressed"]
+[connection signal="pause_button_pressed" from="CanvasLayer/PauseMenu" to="CanvasLayer/MainMenu" method="_on_pause_menu_pause_button_pressed"]
+[connection signal="level_loaded_from_main" from="CanvasLayer/MainMenu" to="." method="_on_main_menu_level_loaded_from_main"]

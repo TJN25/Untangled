@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://c32biawew2xi3"]
+
+[ext_resource type="Script" path="res://Scripts/level_manager.gd" id="1_2hv0l"]
+[ext_resource type="PackedScene" uid="uid://demj7jaylj26t" path="res://Levels/Level1.tscn" id="2_xfjb1"]
+[ext_resource type="PackedScene" uid="uid://dhs7sjxo7i1n5" path="res://Levels/Level2.tscn" id="3_5b8cb"]
+[ext_resource type="PackedScene" uid="uid://byi2a0kh5w1f3" path="res://Levels/Level3.tscn" id="4_ssglg"]
+[ext_resource type="PackedScene" uid="uid://curtc8vahesli" path="res://Levels/LevelTest.tscn" id="5_gmsjv"]
+
+[node name="LevelManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2hv0l")
+level_1 = ExtResource("2_xfjb1")
+LEVEL_2 = ExtResource("3_5b8cb")
+LEVEL_3 = ExtResource("4_ssglg")
+LEVEL_4 = ExtResource("5_gmsjv")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -56.0
+offset_right = 127.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = -145.0
+offset_right = 256.0
+offset_bottom = -119.0
+text = "Levels"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Level 1" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Level 1"
+
+[node name="Level 2" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Level 2"
+
+[node name="Level 3" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Level 3
+"
+
+[node name="Level 4" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Level 4
+"
+
+[node name="Main Menu" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="Panel/VBoxContainer/Level 1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Level 2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Level 3" to="." method="_on_level_3_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Level 4" to="." method="_on_level_4_pressed"]

@@ -1,0 +1,208 @@
+[gd_scene load_steps=24 format=3 uid="uid://c01crxqkknj8x"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/enemy.gd" id="1_wmmej"]
+[ext_resource type="Texture2D" uid="uid://cgbw2mtxgmjx3" path="res://assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Attack/Attack-Sheet.png" id="2_cwklw"]
+[ext_resource type="Texture2D" uid="uid://c5ffvckrv828p" path="res://assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="2_dyv3o"]
+[ext_resource type="Texture2D" uid="uid://qcltpmry56rv" path="res://assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet-Angry.png" id="2_ktlhd"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://health_component.tscn" id="3_efdy5"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://hitbox_component.tscn" id="3_xmm21"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hcv6"]
+atlas = ExtResource("2_ktlhd")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qn4m"]
+atlas = ExtResource("2_ktlhd")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjmpj"]
+atlas = ExtResource("2_ktlhd")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt0ob"]
+atlas = ExtResource("2_ktlhd")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3k8r"]
+atlas = ExtResource("2_cwklw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awj48"]
+atlas = ExtResource("2_cwklw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nynea"]
+atlas = ExtResource("2_cwklw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q45lx"]
+atlas = ExtResource("2_cwklw")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t4ie"]
+atlas = ExtResource("2_dyv3o")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ax6x0"]
+atlas = ExtResource("2_dyv3o")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ut0kp"]
+atlas = ExtResource("2_dyv3o")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ut0mh"]
+atlas = ExtResource("2_dyv3o")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vsrog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hcv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qn4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjmpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt0ob")
+}],
+"loop": true,
+"name": &"Angry",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3k8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awj48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nynea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q45lx")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2t4ie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ax6x0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ut0kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ut0mh")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_incir"]
+radius = 369.661
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gu2i4"]
+radius = 9.0
+height = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_euep0"]
+radius = 41.0122
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4vsin"]
+radius = 10.6066
+height = 31.1127
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 6
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_wmmej")
+ENEMY_SPEED = 110.0
+ATTACK_DAMAGE = 8.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vsrog")
+animation = &"Angry"
+autoplay = "Idle"
+
+[node name="detection_area" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+shape = SubResource("CircleShape2D_incir")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(2.08165e-12, 3)
+shape = SubResource("CapsuleShape2D_gu2i4")
+
+[node name="OverheatComponent" type="Area2D" parent="."]
+
+[node name="overheat_hitbox" type="CollisionShape2D" parent="OverheatComponent"]
+shape = SubResource("CircleShape2D_euep0")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_xmm21")]
+health_component = NodePath("../HealthComponent")
+hitbox_category = "enemy"
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+position = Vector2(2.08165e-12, -10)
+shape = SubResource("CapsuleShape2D_gu2i4")
+
+[node name="scare_cooldown" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_efdy5")]
+MAX_HEALTH = 5.0
+
+[node name="AttackComponent" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent"]
+position = Vector2(2.08165e-12, 3)
+rotation = 1.91986
+shape = SubResource("CapsuleShape2D_4vsin")
+
+[node name="attack_cooldown" type="Timer" parent="."]
+
+[node name="knockback" type="Timer" parent="."]
+
+[node name="overheat_timer" type="Timer" parent="."]
+
+[node name="blast_enemies_cooldown" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="blast_timer" type="Timer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 200.0
+
+[node name="NavTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="child_order_changed" from="." to="." method="_on_child_order_changed"]
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
+[connection signal="area_entered" from="OverheatComponent" to="." method="_on_overheat_component_area_entered"]
+[connection signal="area_exited" from="OverheatComponent" to="." method="_on_overheat_component_area_exited"]
+[connection signal="area_entered" from="AttackComponent" to="." method="_on_attack_component_area_entered"]
+[connection signal="area_exited" from="AttackComponent" to="." method="_on_attack_component_area_exited"]
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="knockback" to="." method="_on_knockback_timeout"]
+[connection signal="timeout" from="overheat_timer" to="." method="_on_overheat_timer_timeout"]
+[connection signal="timeout" from="blast_enemies_cooldown" to="." method="_on_blast_enemies_cooldown_timeout"]
+[connection signal="timeout" from="blast_timer" to="." method="_on_blast_timer_timeout"]
+[connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]
