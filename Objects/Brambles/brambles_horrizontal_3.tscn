@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://duxhiy6wm127x"]
+
+[ext_resource type="Script" path="res://Objects/Brambles/brambles_block.gd" id="1_pykgu"]
+[ext_resource type="TileSet" uid="uid://68dpfo2b51x4" path="res://Levels/test_level.tres" id="2_8dmtu"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://Components/Health/health_component.tscn" id="3_su0tp"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://Components/Hitbox/hitbox_component.tscn" id="4_2bswv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52r63"]
+size = Vector2(193, 81)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfw1e"]
+size = Vector2(202, 92)
+
+[node name="BramblesHorrizontal3" type="Node2D"]
+script = ExtResource("1_pykgu")
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -4
+position = Vector2(-26, -14)
+tile_set = ExtResource("2_8dmtu")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(0, 327686, 9, 65536, 327686, 10, 131072, 327686, 11, -65535, 393222, 8, 1, 393222, 9, 65537, 393222, 10, 131073, 393222, 11, -65534, 458758, 8, 2, 458758, 9, 65538, 458758, 10, 131074, 458758, 11, 3, 524294, 9, 65539, 524294, 10, 131075, 524294, 11, 65531, 6, 9, 65532, 65542, 9, 131068, 65542, 10, -3, 131078, 8, 65533, 131078, 9, 131069, 131078, 10, 196605, 131078, 11, -2, 196614, 8, 65534, 196614, 9, 131070, 196614, 10, 196606, 196614, 11, 262142, 196614, 12, -1, 262150, 8, 65535, 262150, 9, 131071, 262150, 10, 196607, 262150, 11, -65536, 327686, 8, -131071, 393222, 7, -65533, 524294, 8, -65532, 589830, 8, 4, 589830, 9, 65540, 589830, 10, 131076, 589830, 11, 5, 655366, 9, 65541, 655366, 10, 131077, 655366, 11, 196613, 655366, 12, 6, 720902, 9, 65542, 720902, 10, 131078, 720902, 11, 65543, 786438, 10, 131079, 786438, 11)
+
+[node name="AttackComponent" type="Area2D" parent="."]
+position = Vector2(-26, -14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent"]
+position = Vector2(26.5, 13.5)
+shape = SubResource("RectangleShape2D_52r63")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_su0tp")]
+position = Vector2(-26, -14)
+MAX_HEALTH = 2.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_2bswv")]
+position = Vector2(-26, -14)
+collision_layer = 39
+collision_mask = 7
+health_component = NodePath("../HealthComponent")
+hitbox_category = "brambles"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(25, 14)
+shape = SubResource("RectangleShape2D_yfw1e")
+
+[node name="RecoverHealth" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[connection signal="area_entered" from="AttackComponent" to="." method="_on_attack_component_area_entered"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
+[connection signal="area_exited" from="HitboxComponent" to="." method="_on_hitbox_component_area_exited"]
+[connection signal="timeout" from="RecoverHealth" to="." method="_on_recover_health_timeout"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5buk5ohdsms"]
+
+[ext_resource type="Script" path="res://Objects/Brambles/brambles_block.gd" id="1_e6gh2"]
+[ext_resource type="TileSet" uid="uid://68dpfo2b51x4" path="res://Levels/test_level.tres" id="2_r207q"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://Components/Health/health_component.tscn" id="3_pimly"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://Components/Hitbox/hitbox_component.tscn" id="4_ks1vo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52r63"]
+size = Vector2(56, 51)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfw1e"]
+size = Vector2(72, 64)
+
+[node name="BramblesBlock" type="Node2D"]
+script = ExtResource("1_e6gh2")
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -4
+tile_set = ExtResource("2_r207q")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(0, 851974, 15, 65536, 851974, 16, 131072, 851974, 17, 196608, 851974, 18, -65535, 917510, 14, 1, 917510, 15, 65537, 917510, 16, 131073, 917510, 17, 196609, 917510, 18, -65534, 983046, 14, 2, 983046, 15, 65538, 983046, 16, 131074, 983046, 17, 3, 1048582, 15, 65539, 1048582, 16, 131075, 1048582, 17)
+
+[node name="AttackComponent" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent"]
+position = Vector2(28, 22.5)
+shape = SubResource("RectangleShape2D_52r63")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_pimly")]
+MAX_HEALTH = 2.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_ks1vo")]
+collision_layer = 39
+collision_mask = 7
+health_component = NodePath("../HealthComponent")
+hitbox_category = "brambles"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(28, 24)
+shape = SubResource("RectangleShape2D_yfw1e")
+
+[node name="RecoverHealth" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[connection signal="area_entered" from="AttackComponent" to="." method="_on_attack_component_area_entered"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
+[connection signal="area_exited" from="HitboxComponent" to="." method="_on_hitbox_component_area_exited"]
+[connection signal="timeout" from="RecoverHealth" to="." method="_on_recover_health_timeout"]

@@ -1,0 +1,183 @@
+[gd_scene load_steps=20 format=3 uid="uid://c7ldhiepki8gn"]
+
+[ext_resource type="Script" path="res://Characters/Ball/ball.gd" id="1_dyo2i"]
+[ext_resource type="Texture2D" uid="uid://cjjgp1xan61cr" path="res://assets/ball_grey.png" id="2_a281b"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://Components/Hitbox/hitbox_component.tscn" id="3_ba53q"]
+[ext_resource type="Script" path="res://Characters/Ball/BallStateMachine.gd" id="4_is20h"]
+[ext_resource type="Script" path="res://Characters/Ball/BallFollow.gd" id="5_w34to"]
+[ext_resource type="Script" path="res://Characters/Ball/BallReturn.gd" id="6_8be4y"]
+[ext_resource type="Script" path="res://Characters/Ball/BallThrow.gd" id="7_jr21h"]
+[ext_resource type="Script" path="res://Characters/Ball/BallAttack.gd" id="8_2c8yd"]
+[ext_resource type="Script" path="res://Characters/Ball/BallControl.gd" id="9_o4xct"]
+[ext_resource type="Script" path="res://Characters/Ball/DebugStateMachine.gd" id="10_qqmg4"]
+[ext_resource type="AudioStream" uid="uid://di81j7p4vuaom" path="res://assets/audio/FreeSFX/GameSFX/Swoosh/Retro Swooosh 02.wav" id="11_bjc17"]
+[ext_resource type="AudioStream" uid="uid://dddsdquywyhsg" path="res://assets/audio/mine/ball_throw_and_return.wav" id="12_r8gsu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pee33"]
+radius = 6.0
+
+[sub_resource type="Gradient" id="Gradient_ijmqp"]
+offsets = PackedFloat32Array(0, 0.788462)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4jd31"]
+gradient = SubResource("Gradient_ijmqp")
+fill = 1
+fill_from = Vector2(0.508547, 0.525641)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hsnnh"]
+radius = 6.08276
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4pbp"]
+radius = 32.0
+
+[sub_resource type="Gradient" id="Gradient_te1pl"]
+offsets = PackedFloat32Array(0.0111111, 0.988889)
+colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gpmsn"]
+radius = 50.0
+
+[node name="Ball" type="CharacterBody2D" node_paths=PackedStringArray("sprite_canvas_item", "state_machine", "audio_collision_ball", "audio_ball_throw")]
+collision_layer = 12
+collision_mask = 5
+wall_min_slide_angle = 0.0
+floor_stop_on_slope = false
+script = ExtResource("1_dyo2i")
+sprite_canvas_item = NodePath("Sprite2D")
+state_machine = NodePath("BallStateMachine")
+audio_collision_ball = NodePath("Audio_Collision_Ball")
+audio_ball_throw = NodePath("BallThrow")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_a281b")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+light_mask = 4
+visibility_layer = 4
+shape = SubResource("CircleShape2D_pee33")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 200.0
+
+[node name="NavTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1.5, 1.5)
+color = Color(0.87451, 0.647059, 0.298039, 1)
+energy = 0.9
+range_z_max = 5
+texture = SubResource("GradientTexture2D_4jd31")
+texture_scale = 10.0
+
+[node name="blast_timer" type="Timer" parent="."]
+
+[node name="blast_enemies_cooldown" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="DetectionZone" type="Area2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_hsnnh")
+
+[node name="LeftWallRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(-38, 0)
+collision_mask = 16
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RightWallRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(38, 2.08165e-12)
+collision_mask = 16
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_ba53q")]
+hitbox_category = "ball"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_b4pbp")
+
+[node name="TrajectoryLine1" type="Line2D" parent="."]
+visible = false
+z_index = 10
+position = Vector2(2.75874, 0)
+scale = Vector2(1.04589, 1)
+points = PackedVector2Array(0, 0, 133, 0)
+width = 3.0
+default_color = Color(0, 1, 0.733333, 1)
+gradient = SubResource("Gradient_te1pl")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="CollisionTest" type="CharacterBody2D" parent="TrajectoryLine1"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="Hitbox" type="CollisionShape2D" parent="TrajectoryLine1/CollisionTest"]
+light_mask = 4
+visibility_layer = 4
+shape = SubResource("CircleShape2D_pee33")
+
+[node name="AttackComponent" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="AttackComponent"]
+shape = SubResource("CircleShape2D_gpmsn")
+
+[node name="VerticalRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 33)
+
+[node name="BallStateMachine" type="Node" parent="." node_paths=PackedStringArray("inital_state")]
+script = ExtResource("4_is20h")
+inital_state = NodePath("BallFollow")
+
+[node name="BallFollow" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("5_w34to")
+ball = NodePath("../..")
+
+[node name="BallReturn" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("6_8be4y")
+ball = NodePath("../..")
+
+[node name="BallThrow" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("7_jr21h")
+ball = NodePath("../..")
+
+[node name="BallAttack" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("8_2c8yd")
+ball = NodePath("../..")
+
+[node name="BallControl" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("9_o4xct")
+ball = NodePath("../..")
+
+[node name="DebugStateMachine" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+offset_left = -34.0
+offset_top = -42.0
+offset_right = 6.0
+offset_bottom = -19.0
+text = "State: "
+script = ExtResource("10_qqmg4")
+state_machine = NodePath("../BallStateMachine")
+
+[node name="Audio_Collision_Ball" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_bjc17")
+volume_db = -10.0
+
+[node name="BallThrow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_r8gsu")
+
+[connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]
+[connection signal="timeout" from="blast_timer" to="." method="_on_blast_timer_timeout"]
+[connection signal="timeout" from="blast_enemies_cooldown" to="." method="_on_blast_enemies_cooldown_timeout"]
+[connection signal="area_entered" from="DetectionZone" to="." method="_on_detection_zone_area_entered"]
+[connection signal="area_exited" from="DetectionZone" to="." method="_on_detection_zone_area_exited"]
+[connection signal="area_entered" from="AttackComponent" to="." method="_on_attack_component_area_entered"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpa88y1j78j66"]
+
+[ext_resource type="PackedScene" uid="uid://20a0emthk2hv" path="res://Objects/Brambles/brambles.tscn" id="1_22elw"]
+[ext_resource type="TileSet" uid="uid://68dpfo2b51x4" path="res://Levels/test_level.tres" id="2_q6emk"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://Components/Health/health_component.tscn" id="3_jkxhf"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://Components/Hitbox/hitbox_component.tscn" id="4_jaq6p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xhn5i"]
+radius = 32.249
+
+[node name="BramblesSmallHighDamage" node_paths=PackedStringArray("hitbox_component", "health_component", "sprite") instance=ExtResource("1_22elw")]
+hitbox_component = NodePath("HitboxComponent")
+health_component = NodePath("HealthComponent")
+sprite = NodePath("TileMap")
+
+[node name="TileMap" type="TileMap" parent="." index="1"]
+z_index = -4
+tile_set = ExtResource("2_q6emk")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(-2, 851974, 15, 65534, 851974, 16, 131070, 851974, 17, 196606, 851974, 18, -65537, 917510, 14, -1, 917510, 15, 65535, 917510, 16, 131071, 917510, 17, 196607, 917510, 18, -131072, 983046, 14, -65536, 983046, 15, 0, 983046, 16, 65536, 983046, 17, -65535, 1048582, 15, 1, 1048582, 16, 65537, 1048582, 17)
+
+[node name="HealthComponent" parent="." index="2" instance=ExtResource("3_jkxhf")]
+MAX_HEALTH = 2.0
+
+[node name="HitboxComponent" parent="." index="3" node_paths=PackedStringArray("health_component") instance=ExtResource("4_jaq6p")]
+health_component = NodePath("../HealthComponent")
+hitbox_category = "brambles"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
+position = Vector2(-3, 8)
+shape = SubResource("CircleShape2D_xhn5i")

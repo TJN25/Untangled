@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4b0lp5hie58f"]
+
+[ext_resource type="PackedScene" uid="uid://20a0emthk2hv" path="res://Objects/Brambles/brambles.tscn" id="1_lljs5"]
+[ext_resource type="TileSet" uid="uid://68dpfo2b51x4" path="res://Levels/test_level.tres" id="2_gx8do"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://Components/Health/health_component.tscn" id="3_225yl"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://Components/Hitbox/hitbox_component.tscn" id="4_igerk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fcytn"]
+radius = 50.0
+height = 178.0
+
+[node name="BramblesTwistedHighDamage" node_paths=PackedStringArray("hitbox_component", "health_component", "sprite") instance=ExtResource("1_lljs5")]
+hitbox_component = NodePath("HitboxComponent")
+health_component = NodePath("HealthComponent")
+sprite = NodePath("TileMap")
+
+[node name="TileMap" type="TileMap" parent="." index="1"]
+z_index = -4
+tile_set = ExtResource("2_gx8do")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(0, 1441798, 10, 65536, 1441798, 11, 131072, 1441798, 12, -65535, 1507334, 9, 1, 1507334, 10, 65537, 1507334, 11, 131073, 1507334, 12, 196609, 1507334, 13, 65538, 1572870, 11, -131073, 1376262, 7, -65537, 1376262, 8, 65535, 1376262, 10, -131072, 1441798, 8, -65536, 1441798, 9, 327680, 1114118, 29, -131071, 1507334, 8, 196610, 1572870, 13, -6, 1048582, 9, 65530, 1048582, 10, -5, 1114118, 9, 65531, 1114118, 10, 131067, 1114118, 11, -65540, 1179654, 8, -4, 1179654, 9, 65532, 1179654, 10, 131068, 1179654, 11, 196604, 1179654, 12, -65539, 1245190, 8, -3, 1245190, 9, 65533, 1245190, 10, 131069, 1245190, 11, -65538, 1310726, 8, -2, 1310726, 9, 65534, 1310726, 10, 131070, 1310726, 11, 196606, 1310726, 12, -1, 1376262, 9, 131071, 1376262, 11, -131070, 1572870, 8, -65534, 1572870, 9, 2, 1572870, 10, 131074, 1572870, 12, -65533, 1638406, 9, 3, 1638406, 10, 65539, 1638406, 11, 131075, 1638406, 12)
+
+[node name="HealthComponent" parent="." index="2" instance=ExtResource("3_225yl")]
+MAX_HEALTH = 4.0
+
+[node name="HitboxComponent" parent="." index="3" node_paths=PackedStringArray("health_component") instance=ExtResource("4_igerk")]
+health_component = NodePath("../HealthComponent")
+hitbox_category = "brambles"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
+position = Vector2(-14, 13)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fcytn")

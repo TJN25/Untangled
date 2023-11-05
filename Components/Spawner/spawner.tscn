@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cynwi3plebh4o"]
+
+[ext_resource type="Script" path="res://Components/Spawner/spawner.gd" id="1_hxe8l"]
+
+[node name="Spawner" type="Area2D"]
+script = ExtResource("1_hxe8l")
+
+[node name="spawn_cooldown" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="initial_wait_time" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="timeout" from="spawn_cooldown" to="." method="_on_spawn_cooldown_timeout"]
+[connection signal="timeout" from="initial_wait_time" to="." method="_on_initial_wait_time_timeout"]

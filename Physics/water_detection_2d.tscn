@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://buq0xw7qqgqnl"]
 
-[ext_resource type="Script" path="res://Scripts/WaterDetection2D.gd" id="1_mfgve"]
+[ext_resource type="Script" path="res://Physics/WaterDetection2D.gd" id="1_mfgve"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_60gd7"]
 radius = 12.0

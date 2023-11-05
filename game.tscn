@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://bv3d5uu37jkb3"]
 
-[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_0gyat"]
-[ext_resource type="PackedScene" uid="uid://demj7jaylj26t" path="res://Levels/Level1.tscn" id="1_rnchy"]
-[ext_resource type="PackedScene" uid="uid://wgpptu0x2ceb" path="res://pause_menu.tscn" id="3_k81l3"]
-[ext_resource type="PackedScene" uid="uid://cb3d3v4hwsa8n" path="res://main_menu.tscn" id="4_g55l2"]
-[ext_resource type="PackedScene" uid="uid://c32biawew2xi3" path="res://level_manager.tscn" id="5_4dons"]
+[ext_resource type="Script" path="res://game_manager.gd" id="1_22ntd"]
+[ext_resource type="PackedScene" uid="uid://wgpptu0x2ceb" path="res://UI/pause_menu.tscn" id="3_k81l3"]
+[ext_resource type="PackedScene" uid="uid://cb3d3v4hwsa8n" path="res://UI/main_menu.tscn" id="4_g55l2"]
+[ext_resource type="PackedScene" uid="uid://c32biawew2xi3" path="res://UI/level_manager.tscn" id="4_nxhmo"]
+[ext_resource type="PackedScene" uid="uid://c62uibkjr6i2m" path="res://Levels/LevelCaves.tscn" id="5_fbiay"]
 
 [node name="GameManager" type="Node"]
 process_mode = 3
-script = ExtResource("1_0gyat")
+script = ExtResource("1_22ntd")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -16,8 +16,8 @@ script = ExtResource("1_0gyat")
 game_manager = NodePath("../..")
 
 [node name="MainMenu" parent="CanvasLayer" instance=ExtResource("4_g55l2")]
-LEVEL_MANAGER = ExtResource("5_4dons")
-LEVEL_1 = ExtResource("1_rnchy")
+LEVEL_MANAGER = ExtResource("4_nxhmo")
+LEVEL_1 = ExtResource("5_fbiay")
 
 [connection signal="toggle_game_paused" from="." to="CanvasLayer/PauseMenu" method="_on_game_toggle_game_paused"]
 [connection signal="pause_button_pressed" from="CanvasLayer/PauseMenu" to="." method="_on_pause_menu_pause_button_pressed"]

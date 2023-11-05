@@ -1,0 +1,88 @@
+[gd_scene load_steps=14 format=3 uid="uid://b1b1hquv83bgf"]
+
+[ext_resource type="Script" path="res://Characters/Boar/grounded_enemy.gd" id="1_ff23g"]
+[ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://Components/Health/health_component.tscn" id="2_dm6sw"]
+[ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://Components/Hitbox/hitbox_component.tscn" id="3_2gscj"]
+[ext_resource type="Texture2D" uid="uid://daat3m03npja8" path="res://assets/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Run/Run-Sheet.png" id="4_earjd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2pxv1"]
+size = Vector2(40, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gds5"]
+atlas = ExtResource("4_earjd")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os58g"]
+atlas = ExtResource("4_earjd")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flrkh"]
+atlas = ExtResource("4_earjd")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3m8um"]
+atlas = ExtResource("4_earjd")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u03mj"]
+atlas = ExtResource("4_earjd")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1tcp"]
+atlas = ExtResource("4_earjd")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tyf7f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gds5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os58g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flrkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3m8um")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u03mj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1tcp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5nlw"]
+radius = 14.0
+height = 40.0
+
+[node name="GroundedEnemy" type="CharacterBody2D"]
+collision_layer = 6
+collision_mask = 7
+script = ExtResource("1_ff23g")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_dm6sw")]
+MAX_HEALTH = 100.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_2gscj")]
+health_component = NodePath("../HealthComponent")
+hitbox_category = "grounded_enemy"
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_2pxv1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tyf7f")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_o5nlw")
