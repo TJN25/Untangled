@@ -17,10 +17,10 @@ func Update(delta: float):
 		Transitioned.emit(self, "PlayerDead", "player")
 	if Input.is_action_just_pressed("return_ball"):
 		Transitioned.emit(self, "PlayerAir", "player")
-	if player.ball.ball_attached:
-		Transitioned.emit(self, "PlayerAir", "player")
-	if player.player_energy < 50:
-		Transitioned.emit(self, "PlayerAir", "player")
+#	if player.ball.ball_attached:
+#		Transitioned.emit(self, "PlayerAir", "player")
+#	if player.player_energy < 50:
+#		Transitioned.emit(self, "PlayerAir", "player")
 	player.player_energy -= player.HEALTH_INCREMENT*10 * delta
 	update_animation()
 func Physics_Update(delta):

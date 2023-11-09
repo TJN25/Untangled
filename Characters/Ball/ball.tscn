@@ -14,7 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://dddsdquywyhsg" path="res://assets/audio/mine/ball_throw_and_return.wav" id="12_r8gsu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pee33"]
-radius = 6.0
+radius = 16.0312
 
 [sub_resource type="Gradient" id="Gradient_ijmqp"]
 offsets = PackedFloat32Array(0, 0.788462)
@@ -39,16 +39,13 @@ colors = PackedColorArray(0, 1, 1, 1, 0, 1, 1, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_gpmsn"]
 radius = 50.0
 
-[node name="Ball" type="CharacterBody2D" node_paths=PackedStringArray("sprite_canvas_item", "state_machine", "audio_collision_ball", "audio_ball_throw")]
+[node name="Ball" type="CharacterBody2D" node_paths=PackedStringArray("sprite_canvas_item")]
 collision_layer = 12
 collision_mask = 5
 wall_min_slide_angle = 0.0
 floor_stop_on_slope = false
 script = ExtResource("1_dyo2i")
 sprite_canvas_item = NodePath("Sprite2D")
-state_machine = NodePath("BallStateMachine")
-audio_collision_ball = NodePath("Audio_Collision_Ball")
-audio_ball_throw = NodePath("BallThrow")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
@@ -71,7 +68,7 @@ autostart = true
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(1.5, 1.5)
 color = Color(0.87451, 0.647059, 0.298039, 1)
-energy = 0.9
+energy = 1.2
 range_z_max = 5
 texture = SubResource("GradientTexture2D_4jd31")
 texture_scale = 10.0
@@ -159,7 +156,8 @@ ball = NodePath("../..")
 script = ExtResource("9_o4xct")
 ball = NodePath("../..")
 
-[node name="DebugStateMachine" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+[node name="DebugStateMachine" type="Label" parent="." node_paths=PackedStringArray("state_machine", "ball")]
+visible = false
 offset_left = -34.0
 offset_top = -42.0
 offset_right = 6.0
@@ -167,6 +165,7 @@ offset_bottom = -19.0
 text = "State: "
 script = ExtResource("10_qqmg4")
 state_machine = NodePath("../BallStateMachine")
+ball = NodePath("..")
 
 [node name="Audio_Collision_Ball" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_bjc17")

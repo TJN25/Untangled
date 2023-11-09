@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryPowerup" load_steps=2 format=3 uid="uid://dtvd8rujiunr4"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_powerup.gd" id="1_q4cs6"]
+
+[resource]
+script = ExtResource("1_q4cs6")
+name = "do_knockback"
+value = 600.0
+colour = Color(0, 0, 0, 1)
+cost = 50.0

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbr5jyfbj4eqp"]
+
+[ext_resource type="Script" path="res://Components/BramblesRoom/brambles_room.gd" id="1_fpuk1"]
+
+[node name="BramblesRoom" type="Node2D"]
+script = ExtResource("1_fpuk1")

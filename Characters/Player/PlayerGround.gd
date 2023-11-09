@@ -6,6 +6,7 @@ class_name PlayerGround
 
 var direction: float = 0
 
+
 func Enter():
 	player.coyote_dash = player.COYETE_TIME + 1
 	player.audio_landing.play()
@@ -13,14 +14,15 @@ func Enter():
 	player.has_double_jumped = false
 	
 func Update(delta: float):
+	player.throw_counter = player.max_throw_counter
 	if player.health_component.health < 1:
 		Transitioned.emit(self, "PlayerDead", "player")
+	if Input.is_action_just_pressed("regen_health") and player.is_on_floor():
+		Transitioned.emit(self, "PlayerRegen", "player")
 	if Input.is_action_just_pressed("jump"):
 		player.jump_button_pressed = true
-	if Input.is_action_just_pressed("return_ball") and not player.ball.ball_attached and player.player_energy > 50:
-		#print(player.ball.ball_attached)
-		pass
-		#Transitioned.emit(self, "PlayerDrag", "player")
+	if Input.is_action_just_pressed("return_ball"):
+		Transitioned.emit(self, "PlayerDrag", "player")
 	update_animation()
 func Physics_Update(delta):
 	move_player(delta)
@@ -49,6 +51,7 @@ func do_coyote_check(delta):
 	if player.is_on_floor():
 		player.coyote_counter = 0
 	elif player.coyote_counter <= player.COYETE_TIME:
+		player.velocity.y += player.gravity * 0.1 * delta
 		player.coyote_counter += delta
 	else:
 		Transitioned.emit(self, "PlayerAir", "player")

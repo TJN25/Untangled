@@ -1,18 +1,15 @@
 extends Node2D
 
-@export var ATTACK_DAMAGE: float = 25
-@export var KNOCKBACK_DAMAGE: float = 2
-@export var DAMAGE_COOLDOWN: int = 15
+class_name BramblesBlock
 
-@onready var player = get_node("../../Links/Player")
-@onready var ball = get_node("../../Links/Ball")
-@onready var collision_shape: CollisionShape2D = $HitboxComponent/CollisionShape2D
+@onready var hitbox_component: HitboxComponent = $HitboxComponent
+@onready var attack_component: Area2D = $AttackComponent
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var tile_map: TileMap = $TileMap
 
-signal brambles_destroyed
-
-var is_attacked: bool = false
-var damage_counter: int = 0
-
+var ATTACK_DAMAGE: float = 5
+var KNOCKBACK_DAMAGE: float = 5
+var brambles_counter = 1
 
 func _on_attack_component_area_entered(area):
 	if area is HitboxComponent:
@@ -24,44 +21,8 @@ func _on_attack_component_area_entered(area):
 			area.damage(attack)
 
 
-func do_damage():
-	var distance_to_ball = (global_position.distance_to(ball.global_position) - collision_shape.shape.radius)
-	var damage_done = ball.ball_light.energy * (ball.attack_area.shape.radius*ball.attack_area.scale.x - distance_to_ball)/(ball.attack_area.shape.radius*ball.attack_area.scale.x)
-	damage_done = clamp(damage_done, 0, ball.ball_light.energy)
-	if damage_counter > DAMAGE_COOLDOWN:
-		$HealthComponent.health -= damage_done
-		player.player_energy -= damage_done
-		damage_counter = 0
-	else:
-		damage_counter += 1
-
-func _ready():
-	$HealthComponent.health = 1
-
-func _physics_process(delta):
-	if is_attacked:
-		pass
-		#do_damage()
-	if $HealthComponent.health < 0:
-		brambles_destroyed.emit()
-		queue_free()
-
-
-func _on_hitbox_component_area_entered(area):
-	if area is HitboxComponent:
-		if area.hitbox_category == "ball":
-			is_attacked = true
-
-
-
-func _on_hitbox_component_area_exited(area):
-	if area is HitboxComponent:
-		if area.hitbox_category == "ball":
-			is_attacked = false
-
-
-func _on_recover_health_timeout():
-	$HealthComponent.health += 1
-	if $HealthComponent.health > $HealthComponent.MAX_HEALTH:
-		$HealthComponent.health = $HealthComponent.MAX_HEALTH
-	$RecoverHealth.start()
+func _process(delta: float) -> void:
+	if health_component. health <= 0:
+		brambles_counter = 0
+		tile_map.hide()
+		set_process(false)

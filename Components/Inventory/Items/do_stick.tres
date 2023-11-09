@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InventoryPowerup" load_steps=2 format=3 uid="uid://8s1tvg7gllpq"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_powerup.gd" id="1_3tcx0"]
+
+[resource]
+script = ExtResource("1_3tcx0")
+name = "do_stick"
+value = 2.0
+colour = Color(0, 0, 0, 1)

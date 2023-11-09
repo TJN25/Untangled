@@ -33,7 +33,7 @@ func set_health_bar():
 	$CanvasLayer/health_bar.value = $Links/Player/HealthComponent.health
 	$CanvasLayer/health_bar.max_value = $Links/Player.max_player_health
 func set_energy_bar():
-	$CanvasLayer/energy_bar.value = $Links/Player.player_energy
+	$CanvasLayer/energy_bar.value = $Links/Player.energy_component.player_energy
 	$CanvasLayer/energy_bar.max_value = $Links/Player.max_player_energy
 	$CanvasLayer/energy_bar.size.x = 10 + $Links/Player.max_player_energy/100
 	
@@ -41,12 +41,7 @@ func set_enemy_bar():
 	$CanvasLayer/enemy_bar.value = counter
 
 func _ready():
-	ball_slot_1.hide()
-	ball_slot_2.hide()
-	ball_slot_3.hide()
-	ball_slot_4.hide()
-	ball_slot_5.hide()
-	background_tiles.set_modulate(Color(0.16,0.42,0.76,1))
+	#background_tiles.set_modulate(Color(0.16,0.42,0.76,1))
 	#$AudioStreamPlayer2D.play(0.0)
 	main_menu.quit_level.connect(_on_quit_level)
 	$CanvasLayer/enemy_bar.max_value = MAX_ENEMIES + 5
@@ -121,20 +116,20 @@ func _on_quit_level():
 #	$AudioStreamPlayer2D.play(0.0)
 
 
-func _on_player_slot_colour(slot_number, slot_colour):
-	if slot_number == 0:
-		ball_slot_1.show()
-		ball_slot_1.set_modulate(slot_colour)
-	if slot_number == 1:
-		ball_slot_2.show()
-		ball_slot_2.set_modulate(slot_colour)
-	if slot_number == 2:
-		ball_slot_3.show()
-		ball_slot_3.set_modulate(slot_colour)
-	if slot_number == 3:
-		ball_slot_4.show()
-		ball_slot_4.set_modulate(slot_colour)
-	if slot_number == 4:
-		ball_slot_5.show()
-		ball_slot_5.set_modulate(slot_colour)
+#func _on_player_slot_colour(slot_number, slot_colour):
+#	if slot_number == 0:
+#		ball_slot_1.show()
+#		ball_slot_1.set_modulate(slot_colour)
+#	if slot_number == 1:
+#		ball_slot_2.show()
+#		ball_slot_2.set_modulate(slot_colour)
+#	if slot_number == 2:
+#		ball_slot_3.show()
+#		ball_slot_3.set_modulate(slot_colour)
+#	if slot_number == 3:
+#		ball_slot_4.show()
+#		ball_slot_4.set_modulate(slot_colour)
+#	if slot_number == 4:
+#		ball_slot_5.show()
+#		ball_slot_5.set_modulate(slot_colour)
 

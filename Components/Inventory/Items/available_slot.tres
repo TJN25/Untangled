@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://cbo6fo8a05pmb"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_item.gd" id="1_5ascc"]
+[ext_resource type="Texture2D" uid="uid://dyy72h26j6mss" path="res://assets/background_grey.png" id="2_spw3h"]
+
+[resource]
+script = ExtResource("1_5ascc")
+name = "available_slot"
+texture = ExtResource("2_spw3h")
+colour = Color(0, 0, 0, 0)

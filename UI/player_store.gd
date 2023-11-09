@@ -20,15 +20,15 @@ func _process(delta):
 	pass
 
 func _input(event: InputEvent):
-	if event.is_action_pressed("player_store"):
-		print("pressed")
-		store_open = !store_open
-		if store_open:
-			get_tree().paused = true
-			show()
-		else:
-			get_tree().paused = false
-			hide()
+	pass
+#	if event.is_action_pressed("player_store"):
+#		store_open = !store_open
+#		if store_open:
+#			get_tree().paused = true
+#			show()
+#		else:
+#			get_tree().paused = false
+#			hide()
 
 
 func _on_resume_pressed():

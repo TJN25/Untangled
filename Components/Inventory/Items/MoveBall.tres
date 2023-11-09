@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryBall" load_steps=3 format=3 uid="uid://jm73i3tt8huo"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_ball.gd" id="1_tuipb"]
+[ext_resource type="Texture2D" uid="uid://cjjgp1xan61cr" path="res://assets/ball_grey.png" id="2_pemyh"]
+
+[resource]
+script = ExtResource("1_tuipb")
+name = "MoveBall"
+texture = ExtResource("2_pemyh")
+colour = Color(0.505882, 0.45098, 1, 1)
+power_ups = null

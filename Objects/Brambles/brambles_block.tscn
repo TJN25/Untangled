@@ -40,11 +40,4 @@ hitbox_category = "brambles"
 position = Vector2(28, 24)
 shape = SubResource("RectangleShape2D_yfw1e")
 
-[node name="RecoverHealth" type="Timer" parent="."]
-wait_time = 20.0
-autostart = true
-
 [connection signal="area_entered" from="AttackComponent" to="." method="_on_attack_component_area_entered"]
-[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
-[connection signal="area_exited" from="HitboxComponent" to="." method="_on_hitbox_component_area_exited"]
-[connection signal="timeout" from="RecoverHealth" to="." method="_on_recover_health_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpa88y1j78j66"]
+[gd_scene load_steps=7 format=3 uid="uid://dpa88y1j78j66"]
 
 [ext_resource type="PackedScene" uid="uid://20a0emthk2hv" path="res://Objects/Brambles/brambles.tscn" id="1_22elw"]
 [ext_resource type="TileSet" uid="uid://68dpfo2b51x4" path="res://Levels/test_level.tres" id="2_q6emk"]
@@ -7,6 +7,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xhn5i"]
 radius = 32.249
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bqf5p"]
+radius = 399.001
 
 [node name="BramblesSmallHighDamage" node_paths=PackedStringArray("hitbox_component", "health_component", "sprite") instance=ExtResource("1_22elw")]
 hitbox_component = NodePath("HitboxComponent")
@@ -30,3 +33,11 @@ hitbox_category = "brambles"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="1"]
 position = Vector2(-3, 8)
 shape = SubResource("CircleShape2D_xhn5i")
+
+[node name="EnergyRange" type="Area2D" parent="." index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnergyRange" index="0"]
+shape = SubResource("CircleShape2D_bqf5p")
+
+[connection signal="area_entered" from="EnergyRange" to="." method="_on_energy_range_area_entered"]
+[connection signal="area_exited" from="EnergyRange" to="." method="_on_energy_range_area_exited"]

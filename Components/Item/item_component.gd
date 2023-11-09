@@ -2,8 +2,11 @@ extends Area2D
 
 class_name ItemComponent
 
+signal item_collected
+
 @export var feature: String
 @export var player: Player
+@export var item_type: Resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,23 +20,13 @@ func _process(delta):
 func _on_area_entered(area):
 	if area is HitboxComponent:
 		if area.hitbox_category == "player":
-			if feature == "can_knockback_ball":
-				#player.can_knockback_ball = true
-				player.ball_slots_list.append('Boost')
+			item_collected.emit()
+			if feature == "ball_shell":
+				player.inventory.max_ball_slots += 1
 				player.set_ball_features()
 				queue_free()
-			elif feature == "increase_ball_knockback" and player.ball_knockback_value > 2:
-				player.ball_knockback_value -= 50
-				queue_free()
-			elif feature == "can_down_smash":
-				player.can_blast =true
+			elif feature:
+				player.inventory.update(item_type)
 				player.set_ball_features()
 				queue_free()
-			elif feature == "ball_shell":
-				player.max_ball_slots += 1
-				player.set_ball_features()
-				queue_free()
-			elif feature == "ball_throw_range":
-				player.ball_throw_range += 100
-				player.set_ball_features()
-				queue_free()
+

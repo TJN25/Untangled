@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InventoryPowerup" load_steps=3 format=3 uid="uid://stoq8yf7x20n"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_powerup.gd" id="1_8fj3s"]
+[ext_resource type="Texture2D" uid="uid://bpeeax4rdb275" path="res://assets/powerup.png" id="2_jhwfd"]
+
+[resource]
+script = ExtResource("1_8fj3s")
+name = "increase_light"
+value = 0.75
+texture = ExtResource("2_jhwfd")
+colour = Color(0.941176, 0.941176, 0.941176, 1)
+cost = 0.5

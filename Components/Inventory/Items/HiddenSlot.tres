@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://diq1eux4g3fbw"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_item.gd" id="1_grmkr"]
+[ext_resource type="Texture2D" uid="uid://dyy72h26j6mss" path="res://assets/background_grey.png" id="2_6x4sx"]
+
+[resource]
+script = ExtResource("1_grmkr")
+name = "CannotUse"
+texture = ExtResource("2_6x4sx")
+colour = Color(0, 0, 0, 1)

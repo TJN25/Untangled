@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InventoryPowerup" load_steps=3 format=3 uid="uid://qtf8gkwbjugv"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_powerup.gd" id="1_hw652"]
+[ext_resource type="Texture2D" uid="uid://bpeeax4rdb275" path="res://assets/powerup.png" id="2_4scip"]
+
+[resource]
+script = ExtResource("1_hw652")
+name = "increase_knockback"
+value = 250.0
+texture = ExtResource("2_4scip")
+colour = Color(0.85098, 0, 0, 1)
+cost = 10.0

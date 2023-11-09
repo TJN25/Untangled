@@ -4,21 +4,21 @@ class_name Ball
 
 signal ball_thrown_signal(is_thrown, thrown_direction)
 
-@export var SPEED: float = 150
+@export var SPEED_DIFF: float = 150
 @export var DESIRED_HEIGHT: float = 256
 @export var DESIRED_HEIGHT_DOUBLE_JUMP: float = 192
 @export var DESIRED_DISTANCE: float = 300
 @export var DRAG_FACTOR: float = 10
 @export var MAX_SPEED: float = 400
 @export var PLAYER_FORCE: float = 800
-@export var MAX_LIGHT_INTENSITY: float = 0.9
-@export var MAX_LIGHT_SCALE: float = 1
+@export var MAX_LIGHT_INTENSITY: float = 1.4
+@export var MAX_LIGHT_SCALE: float = 1.5
 @export var ATTACK_DAMAGE: float = 2
 @export var sprite_canvas_item: CanvasItem
 
-@export var state_machine: BallStateMachine
-@export var audio_collision_ball: AudioStreamPlayer2D
-@export var audio_ball_throw: AudioStreamPlayer2D
+@onready var state_machine: BallStateMachine = $BallStateMachine
+@onready var audio_collision_ball: AudioStreamPlayer2D = $Audio_Collision_Ball
+@onready var audio_ball_throw: AudioStreamPlayer2D = $BallThrow
 
 @onready var player: Node2D = get_node("../Player")
 @onready var navigation_agent:= $NavigationAgent2D as NavigationAgent2D
@@ -33,13 +33,14 @@ signal ball_thrown_signal(is_thrown, thrown_direction)
 var prev_pos = position
 var velocity_ball = Vector2()
 var current_speed: float = 0
+var speed: float
 
 var player_position: Vector2 = Vector2(0.0, 0.0)
 var distance_to_player: float = 0.0
 var angle_to_player: float = 0.0
 var player_force: Vector2 = Vector2(0.0, 0.0)
 
-var player_energy: float
+
 var player_max_energy: float
 var player_health: float
 var player_max_health: float
@@ -52,6 +53,7 @@ var ball_thrown: bool = false
 var coyote_counter: float = 0
 var jump_button_pressed: bool = false
 var jump_buffer: float = 0
+var throw_jump_buffer: float = 10
 var can_jump: bool = true
 var ball_in_brambles: bool = false
 var player_not_moving_y: bool = false
@@ -67,6 +69,8 @@ var attack_scale: Vector2 = Vector2(1,1)
 var max_points: int = 30
 var ball_attack: bool = false
 var throw_direction: Vector2 = Vector2.ZERO
+var attack_collision
+var bounce_counter: int = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float
@@ -74,6 +78,7 @@ var JUMP_VELOCITY: float
 var DOUBLE_JUMP_VELOCITY: float
 
 func _ready():
+	speed = MAX_SPEED*4.5
 	var DESIRED_TIME_Y = DESIRED_DISTANCE/MAX_SPEED
 	JUMP_VELOCITY = -2*DESIRED_HEIGHT/DESIRED_TIME_Y
 	DOUBLE_JUMP_VELOCITY = -2*DESIRED_HEIGHT_DOUBLE_JUMP/DESIRED_TIME_Y
@@ -99,13 +104,14 @@ func get_player_force(delta):
 	
 
 func adjust_lighting():
-
-	player_energy = player.player_energy
-	player_max_energy = player.MAX_PLAYER_ENERGY
 	player_health = get_node("../Player/HealthComponent").health
 	player_max_health = get_node("../Player/HealthComponent").MAX_HEALTH
-	var energy_level = player_energy/player_max_energy
-	ball_light.scale = Vector2(energy_level*MAX_LIGHT_SCALE, energy_level*MAX_LIGHT_SCALE)
+	var energy_level = player.energy_component.player_energy/player.max_player_energy
+	energy_level = clamp(energy_level, 0.3, 1)
+	if player.do_bright_light:
+		ball_light.scale = Vector2(energy_level*MAX_LIGHT_SCALE*player.bright_light_value, energy_level*MAX_LIGHT_SCALE*player.bright_light_value)
+	else:
+		ball_light.scale = Vector2(energy_level*MAX_LIGHT_SCALE, energy_level*MAX_LIGHT_SCALE)
 
 
 func update_trajectory(delta, jump_height, speed):
@@ -154,15 +160,34 @@ func do_speed_limit(delta):
 			velocity.x += DRAG_FACTOR * delta
 		elif velocity.x > MAX_SPEED:
 			velocity.x -= DRAG_FACTOR * delta
-		velocity.y = clamp(velocity.y, JUMP_VELOCITY, MAX_SPEED*2)
+		if velocity.y < -MAX_SPEED:
+			velocity.y += DRAG_FACTOR * delta
+		elif velocity.y > MAX_SPEED:
+			velocity.y -= DRAG_FACTOR * delta
+		velocity.y = clamp(velocity.y, -MAX_SPEED*4.5, MAX_SPEED*4.5)
 	
+
+func do_ball_collisions(delta):
+	attack_collision = move_and_collide(velocity * delta)
+	if attack_collision and state_machine.current_state.name == "BallControl":
+		can_jump = true
+		velocity = velocity.bounce(attack_collision.get_normal()) * 0.4
+	elif attack_collision and bounce_counter < player.max_ball_bounces and player.ball_can_bounce:
+		can_jump = true
+		velocity = velocity.bounce(attack_collision.get_normal()) * 0.8
+		bounce_counter += 1
+
 
 
 func _physics_process(delta):
 	adjust_attack_hitbox()
 	do_speed_limit(delta)
 	adjust_lighting()
-	move_and_slide()
+	if (state_machine.current_state.name == "BallAttack" and player.ball_can_bounce) or state_machine.current_state.name == "BallControl":
+		do_ball_collisions(delta)
+	else:
+		move_and_slide()
+
 
 func make_path():
 	navigation_agent.target_position = player.global_position
@@ -234,16 +259,17 @@ func _on_attack_component_area_entered(area):
 				attack.attack_position = global_position
 				attack.attack_damage = ATTACK_DAMAGE 
 				attack.attack_damage = clamp(attack.attack_damage, ATTACK_DAMAGE, ATTACK_DAMAGE*100)
-				player.player_energy -= attack.attack_damage/2
+				player.energy_component.player_energy -= attack.attack_damage/2
 				area.damage(attack)
 				ball_attack = true
+				player.throw_counter += 1
 			elif area.hitbox_category == "firefly":
 				var attack = Attack.new()
 				attack.knockback_damage = 0
 				attack.attack_position = global_position
 				attack.attack_damage = ATTACK_DAMAGE
 				area.damage(attack)
-				player.player_energy += 10
+				player.energy_component.player_energy += 10
 				player.max_player_energy += 1
 				ball_attack = true
 

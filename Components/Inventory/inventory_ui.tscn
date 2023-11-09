@@ -1,0 +1,554 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1xu8bgjkqptd"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_ui.gd" id="1_li66i"]
+[ext_resource type="Resource" uid="uid://diq1eux4g3fbw" path="res://Components/Inventory/Items/HiddenSlot.tres" id="2_n3qym"]
+[ext_resource type="Texture2D" uid="uid://dppubknevc44d" path="res://assets/inv_background.png" id="2_ve2o3"]
+[ext_resource type="Resource" uid="uid://cbo6fo8a05pmb" path="res://Components/Inventory/Items/available_slot.tres" id="3_0lr1j"]
+[ext_resource type="PackedScene" uid="uid://wrs468op6rls" path="res://Components/Inventory/inventory_ui_slot.tscn" id="3_3gal0"]
+
+[node name="InventoryUI" type="Control" node_paths=PackedStringArray("ball_container_in_use", "extra_ball_container", "bonus_powerups_in_use", "bonus_powerups_not_in_use")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -40.0
+offset_right = 72.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_li66i")
+ball_container_in_use = NodePath("NinePatchRect/InUseBalls")
+extra_ball_container = NodePath("NinePatchRect/BallsNotInUse")
+bonus_powerups_in_use = NodePath("NinePatchRect/PowerupsInUse")
+bonus_powerups_not_in_use = NodePath("NinePatchRect/ExtraPowerups")
+hidden_slot = ExtResource("2_n3qym")
+available_slot = ExtResource("3_0lr1j")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -75.0
+offset_right = 72.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ve2o3")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+layout_mode = 2
+offset_left = 36.0
+offset_top = -25.0
+offset_right = 109.0
+offset_bottom = 1.0
+
+[node name="InUseBalls" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 20.0
+offset_right = 132.0
+offset_bottom = 56.0
+columns = 6
+
+[node name="InventoryUISlot" parent="NinePatchRect/InUseBalls" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="InUse1" type="Button" parent="NinePatchRect/InUseBalls/InventoryUISlot"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryUISlot2" parent="NinePatchRect/InUseBalls" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="InUse2" type="Button" parent="NinePatchRect/InUseBalls/InventoryUISlot2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot3" parent="NinePatchRect/InUseBalls" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="InUse3" type="Button" parent="NinePatchRect/InUseBalls/InventoryUISlot3"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot4" parent="NinePatchRect/InUseBalls" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="InUse4" type="Button" parent="NinePatchRect/InUseBalls/InventoryUISlot4"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot5" parent="NinePatchRect/InUseBalls" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="InUse5" type="Button" parent="NinePatchRect/InUseBalls/InventoryUISlot5"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot6" parent="NinePatchRect/InUseBalls" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="InUse6" type="Button" parent="NinePatchRect/InUseBalls/InventoryUISlot6"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="BallsNotInUse" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 132.0
+offset_bottom = 84.0
+columns = 6
+
+[node name="InventoryUISlot" parent="NinePatchRect/BallsNotInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="Extra1" type="Button" parent="NinePatchRect/BallsNotInUse/InventoryUISlot"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot2" parent="NinePatchRect/BallsNotInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="Extra2" type="Button" parent="NinePatchRect/BallsNotInUse/InventoryUISlot2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot3" parent="NinePatchRect/BallsNotInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="Extra3" type="Button" parent="NinePatchRect/BallsNotInUse/InventoryUISlot3"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot4" parent="NinePatchRect/BallsNotInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="Extra4" type="Button" parent="NinePatchRect/BallsNotInUse/InventoryUISlot4"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot5" parent="NinePatchRect/BallsNotInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="Extra5" type="Button" parent="NinePatchRect/BallsNotInUse/InventoryUISlot5"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot6" parent="NinePatchRect/BallsNotInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="Extra6" type="Button" parent="NinePatchRect/BallsNotInUse/InventoryUISlot6"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="PowerupsInUse" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 39.0
+offset_right = 474.0
+offset_bottom = 79.0
+scale = Vector2(0.335, 0.335)
+columns = 23
+
+[node name="InventoryUISlot" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_0_0" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_right = 16.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot2" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_0_1" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 0.895508
+offset_right = 15.8955
+offset_bottom = 15.0
+
+[node name="Control" type="Control" parent="NinePatchRect/PowerupsInUse"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="InventoryUISlot4" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_1_0" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot4"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="InventoryUISlot5" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_1_1" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot5"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 0.596924
+offset_right = 15.5969
+offset_bottom = 15.0
+
+[node name="Control2" type="Control" parent="NinePatchRect/PowerupsInUse"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="InventoryUISlot8" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_2_0" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot8"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -0.596924
+offset_right = 14.4031
+offset_bottom = 15.0
+
+[node name="InventoryUISlot9" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_2_1" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot9"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 0.298584
+offset_right = 15.2986
+offset_bottom = 15.0
+
+[node name="Control3" type="Control" parent="NinePatchRect/PowerupsInUse"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="InventoryUISlot10" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_3_0" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot10"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -0.895508
+offset_right = 14.1045
+offset_bottom = 15.0
+
+[node name="InventoryUISlot12" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_3_1" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot12"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 15.0
+offset_bottom = 15.0
+
+[node name="Control4" type="Control" parent="NinePatchRect/PowerupsInUse"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="InventoryUISlot13" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_4_0" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot13"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.79077
+offset_right = 16.7908
+offset_bottom = 15.0
+
+[node name="InventoryUISlot15" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_4_1" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot15"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -0.298828
+offset_right = 14.7012
+offset_bottom = 15.0
+
+[node name="Control5" type="Control" parent="NinePatchRect/PowerupsInUse"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="InventoryUISlot17" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_5_0" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot17"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 1.49243
+offset_right = 16.4924
+offset_bottom = 15.0
+
+[node name="InventoryUISlot18" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="powerup_5_1" type="Button" parent="NinePatchRect/PowerupsInUse/InventoryUISlot18"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -0.597168
+offset_right = 14.4028
+offset_bottom = 15.0
+
+[node name="ExtraPowerups" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 75.0
+offset_right = 131.0
+offset_bottom = 131.0
+columns = 6
+
+[node name="InventoryUISlot" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup1" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot2" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup2" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot2"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 17.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot3" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup3" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot3"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot4" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup4" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot4"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot5" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup5" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot5"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot6" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup6" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot6"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot7" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup7" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot7"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot8" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup8" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot8"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot9" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup9" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot9"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot10" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup10" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot10"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot11" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup11" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot11"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot12" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup12" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot12"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot13" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup13" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot13"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot14" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup14" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot14"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot15" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup15" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot15"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot16" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup16" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot16"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot17" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup17" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot17"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="InventoryUISlot18" parent="NinePatchRect/ExtraPowerups" instance=ExtResource("3_3gal0")]
+layout_mode = 2
+
+[node name="ExtraPowerup18" type="Button" parent="NinePatchRect/ExtraPowerups/InventoryUISlot18"]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[connection signal="mouse_entered" from="NinePatchRect/InUseBalls/InventoryUISlot/InUse1" to="." method="_on_in_use_1_mouse_entered"]
+[connection signal="mouse_exited" from="NinePatchRect/InUseBalls/InventoryUISlot/InUse1" to="." method="_on_in_use_1_mouse_exited"]
+[connection signal="pressed" from="NinePatchRect/InUseBalls/InventoryUISlot/InUse1" to="." method="_on_in_use_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/InUseBalls/InventoryUISlot2/InUse2" to="." method="_on_in_use_2_pressed"]
+[connection signal="pressed" from="NinePatchRect/InUseBalls/InventoryUISlot3/InUse3" to="." method="_on_in_use_3_pressed"]
+[connection signal="pressed" from="NinePatchRect/InUseBalls/InventoryUISlot4/InUse4" to="." method="_on_in_use_4_pressed"]
+[connection signal="pressed" from="NinePatchRect/InUseBalls/InventoryUISlot5/InUse5" to="." method="_on_in_use_5_pressed"]
+[connection signal="pressed" from="NinePatchRect/InUseBalls/InventoryUISlot6/InUse6" to="." method="_on_in_use_6_pressed"]
+[connection signal="pressed" from="NinePatchRect/BallsNotInUse/InventoryUISlot/Extra1" to="." method="_on_extra_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/BallsNotInUse/InventoryUISlot2/Extra2" to="." method="_on_extra_2_pressed"]
+[connection signal="pressed" from="NinePatchRect/BallsNotInUse/InventoryUISlot3/Extra3" to="." method="_on_extra_3_pressed"]
+[connection signal="pressed" from="NinePatchRect/BallsNotInUse/InventoryUISlot4/Extra4" to="." method="_on_extra_4_pressed"]
+[connection signal="pressed" from="NinePatchRect/BallsNotInUse/InventoryUISlot5/Extra5" to="." method="_on_extra_5_pressed"]
+[connection signal="pressed" from="NinePatchRect/BallsNotInUse/InventoryUISlot6/Extra6" to="." method="_on_extra_6_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot/powerup_0_0" to="." method="_on_powerup_0_0_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot2/powerup_0_1" to="." method="_on_powerup_0_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot4/powerup_1_0" to="." method="_on_powerup_1_0_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot5/powerup_1_1" to="." method="_on_powerup_1_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot8/powerup_2_0" to="." method="_on_powerup_2_0_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot9/powerup_2_1" to="." method="_on_powerup_2_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot10/powerup_3_0" to="." method="_on_powerup_3_0_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot12/powerup_3_1" to="." method="_on_powerup_3_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot13/powerup_4_0" to="." method="_on_powerup_4_0_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot15/powerup_4_1" to="." method="_on_powerup_4_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot17/powerup_5_0" to="." method="_on_powerup_5_0_pressed"]
+[connection signal="pressed" from="NinePatchRect/PowerupsInUse/InventoryUISlot18/powerup_5_1" to="." method="_on_powerup_5_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot/ExtraPowerup1" to="." method="_on_extra_powerup_1_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot2/ExtraPowerup2" to="." method="_on_extra_powerup_2_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot3/ExtraPowerup3" to="." method="_on_extra_powerup_3_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot4/ExtraPowerup4" to="." method="_on_extra_powerup_4_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot5/ExtraPowerup5" to="." method="_on_extra_powerup_5_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot6/ExtraPowerup6" to="." method="_on_extra_powerup_6_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot7/ExtraPowerup7" to="." method="_on_extra_powerup_7_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot8/ExtraPowerup8" to="." method="_on_extra_powerup_8_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot9/ExtraPowerup9" to="." method="_on_extra_powerup_9_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot10/ExtraPowerup10" to="." method="_on_extra_powerup_10_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot11/ExtraPowerup11" to="." method="_on_extra_powerup_11_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot12/ExtraPowerup12" to="." method="_on_extra_powerup_12_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot13/ExtraPowerup13" to="." method="_on_extra_powerup_13_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot14/ExtraPowerup14" to="." method="_on_extra_powerup_14_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot15/ExtraPowerup15" to="." method="_on_extra_powerup_15_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot16/ExtraPowerup16" to="." method="_on_extra_powerup_16_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot17/ExtraPowerup17" to="." method="_on_extra_powerup_17_pressed"]
+[connection signal="pressed" from="NinePatchRect/ExtraPowerups/InventoryUISlot18/ExtraPowerup18" to="." method="_on_extra_powerup_18_pressed"]

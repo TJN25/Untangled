@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InventoryBall" load_steps=3 format=3 uid="uid://i3n7je2uqp71"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory_ball.gd" id="1_77yag"]
+[ext_resource type="Texture2D" uid="uid://cjjgp1xan61cr" path="res://assets/ball_grey.png" id="2_cgtxc"]
+
+[resource]
+script = ExtResource("1_77yag")
+name = "SmashBall"
+texture = ExtResource("2_cgtxc")
+colour = Color(0, 0.882353, 0, 1)
+power_ups = null

@@ -11,24 +11,36 @@ var gravity: float
 var mouse_dir: Vector2
 
 func Enter():
-	ball.audio_ball_throw.stop()
+	ball.motion_mode = 1
+	#ball.audio_ball_throw.stop()
 	ball.throw_direction = Vector2.ZERO
 	ball.ball_thrown_signal.emit(false, Vector2.ZERO)
 	ball.ball_attached = true
 	#ball.ball_attack = false
 	
-	
+func Exit():
+	ball.motion_mode = 0
 
 func Update(delta: float):
-	if ball.player.health_component.health  < 1:
+	if ball.player.do_bright_light:
+		ball.player.energy_component.player_energy -= ball.player.energy_cost * delta
+	if ball.player.state_machine.current_state.name == "PlayerDead" or ball.player.state_machine.current_state.name == "PlayerDrag":
 		Transitioned.emit(self, "BallControl", "ball")
-	#ball.update_trajectory(delta, -ball.JUMP_VELOCITY, ball.MAX_SPEED*3)
-#	if Input.is_action_just_pressed("throw_ball"):
-#		Transitioned.emit(self, "BallThrow", "ball")
-	if Input.get_axis("throw_left", "throw_right") or Input.get_axis("throw_up", "throw_down"):
-		ball.throw_direction.x = Input.get_axis("throw_left", "throw_right")
-		ball.throw_direction.y = Input.get_axis("throw_up", "throw_down")
-		Transitioned.emit(self, "BallAttack", "ball")
+	if ball.player.throw_counter > 0:
+		if Input.is_action_just_pressed("throw_down") or Input.is_action_just_pressed("throw_up") or Input.is_action_just_pressed("throw_left") or Input.is_action_just_pressed("throw_right"):
+			if Input.get_axis("throw_left", "throw_right") or Input.get_axis("throw_up", "throw_down"):
+				ball.throw_direction.x = Input.get_axis("throw_left", "throw_right")
+				ball.throw_direction.y = Input.get_axis("throw_up", "throw_down")
+				if ball.player.ball_can_move:
+					Transitioned.emit(self, "BallControl", "ball")
+				else:
+					Transitioned.emit(self, "BallAttack", "ball")
+		elif ball.throw_jump_buffer < ball.player.JUMP_BUFFER/2:
+			ball.throw_jump_buffer = ball.player.JUMP_BUFFER + 1
+			if ball.player.ball_can_move:
+				Transitioned.emit(self, "BallControl", "ball")
+			else:
+				Transitioned.emit(self, "BallAttack", "ball")
 #	if Input.is_action_just_pressed("return_ball"):
 #		Transitioned.emit(self, "BallAttack", "ball")
 func Physics_Update(delta):

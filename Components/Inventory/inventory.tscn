@@ -1,0 +1,22 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvy6js7otg32o"]
+
+[ext_resource type="Script" path="res://Components/Inventory/inventory.gd" id="1_w0khi"]
+[ext_resource type="Resource" uid="uid://dtvd8rujiunr4" path="res://Components/Inventory/Items/do_knockback_powerup.tres" id="2_d428m"]
+[ext_resource type="Resource" uid="uid://vhjkgxj7oekj" path="res://Components/Inventory/Items/do_smash.tres" id="3_jc0yv"]
+[ext_resource type="Resource" uid="uid://cho3be7qythhe" path="res://Components/Inventory/Items/do_bounce.tres" id="4_4ktii"]
+[ext_resource type="Resource" uid="uid://dvdtwj0k821w2" path="res://Components/Inventory/Items/do_move.tres" id="5_fell5"]
+[ext_resource type="Resource" uid="uid://8s1tvg7gllpq" path="res://Components/Inventory/Items/do_stick.tres" id="6_yd5v7"]
+[ext_resource type="Resource" uid="uid://stoq8yf7x20n" path="res://Components/Inventory/Items/increase_light.tres" id="7_ncwri"]
+
+[node name="Inventory" type="Node"]
+script = ExtResource("1_w0khi")
+powerups_in_use = {
+"BasicBall": [],
+"BounceBall": [ExtResource("4_4ktii")],
+"KnockbackBall": [ExtResource("2_d428m")],
+"LargeLight": [ExtResource("7_ncwri")],
+"MoveBall": [ExtResource("5_fell5")],
+"Player": [],
+"SmashBall": [ExtResource("3_jc0yv")],
+"StickBall": [ExtResource("6_yd5v7")]
+}

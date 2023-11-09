@@ -1,12 +1,14 @@
-[gd_scene load_steps=46 format=3 uid="uid://hrqmrpxd63wi"]
+[gd_scene load_steps=52 format=3 uid="uid://hrqmrpxd63wi"]
 
 [ext_resource type="Script" path="res://Characters/Player/player-movement.gd" id="1_msmfv"]
 [ext_resource type="Texture2D" uid="uid://d1ihk3o630p7d" path="res://assets/BlueWizard/2BlueWizardIdle/sprite_sheet_idle.png" id="2_1xh1i"]
+[ext_resource type="Resource" uid="uid://bguqc75ftq1nd" path="res://Components/Inventory/Items/BasicBall.tres" id="3_6mer8"]
 [ext_resource type="Texture2D" uid="uid://dae4fngfxlcg5" path="res://assets/BlueWizard/2BlueWizardJump/blue_wizard_jump.png" id="3_7ulfj"]
 [ext_resource type="Texture2D" uid="uid://e6n21nxvrxjo" path="res://assets/BlueWizard/2BlueWizardWalk/blue_wizard_walk.png" id="4_j8tbh"]
 [ext_resource type="Texture2D" uid="uid://suyyb1wbaxba" path="res://assets/Mushroom sprite test.png" id="5_r2i5n"]
 [ext_resource type="PackedScene" uid="uid://bmx61d43c80b5" path="res://Components/Health/health_component.tscn" id="6_pg0jp"]
 [ext_resource type="PackedScene" uid="uid://c6gemfwgplrco" path="res://Components/Hitbox/hitbox_component.tscn" id="7_jt00d"]
+[ext_resource type="Script" path="res://Components/PlayerEnergy/EnergyComponent.gd" id="8_cmxj3"]
 [ext_resource type="Texture2D" uid="uid://c7tq1xiqmu5do" path="res://assets/Light.png" id="8_trpra"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerStateMachine.gd" id="9_yh7bn"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerGround.gd" id="10_c6mp3"]
@@ -21,7 +23,10 @@
 [ext_resource type="AudioStream" uid="uid://bva8yuuuh858u" path="res://assets/audio/mine/player_landing.wav" id="18_h5ilf"]
 [ext_resource type="AudioStream" uid="uid://7mk3xd68iuua" path="res://assets/audio/mine/footsteps.wav" id="19_5cohq"]
 [ext_resource type="Script" path="res://Characters/Player/DebugPlayerState.gd" id="19_6kug7"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerRegen.gd" id="19_hdepx"]
 [ext_resource type="AudioStream" uid="uid://byie4e2o8pqpj" path="res://assets/audio/mine/jump_player_fillin.wav" id="20_c07is"]
+[ext_resource type="PackedScene" uid="uid://bvy6js7otg32o" path="res://Components/Inventory/inventory.tscn" id="24_7ymv8"]
+[ext_resource type="Script" path="res://Characters/Player/WallCheckBody.gd" id="27_73amp"]
 
 [sub_resource type="Animation" id="Animation_kvj3e"]
 resource_name = "Idle"
@@ -254,8 +259,8 @@ states/jump/position = Vector2(398, 27)
 transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_64i4d"), "Move", "jump", SubResource("AnimationNodeStateMachineTransition_j8x2j"), "jump", "Move", SubResource("AnimationNodeStateMachineTransition_qfkj1")]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d51b4"]
-radius = 15.0
-height = 66.0
+radius = 20.0
+height = 72.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0di8c"]
 atlas = ExtResource("5_r2i5n")
@@ -308,15 +313,23 @@ fill = 1
 fill_from = Vector2(0.478632, 0.508547)
 fill_to = Vector2(0.84188, 0.149573)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "audio_landing", "audio_footsteps", "audio_jump", "state_machine")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ard38"]
+radius = 5.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "energy_component", "audio_landing", "audio_footsteps", "audio_jump", "state_machine", "inventory")]
 collision_layer = 2
 collision_mask = 99
 script = ExtResource("1_msmfv")
 health_component = NodePath("HealthComponent")
+energy_component = NodePath("EnergyComponent")
 audio_landing = NodePath("AudioLanding")
 audio_footsteps = NodePath("FootSteps")
 audio_jump = NodePath("Jump")
 state_machine = NodePath("PlayerStateMachine")
+inventory = NodePath("Inventory")
+
+[node name="Inventory" parent="." instance=ExtResource("24_7ymv8")]
+balls_in_use = Array[Resource("res://Components/Inventory/inventory_ball.gd")]([ExtResource("3_6mer8")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -342,7 +355,7 @@ hue_variation_min = -0.8
 hue_variation_max = 0.7
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("4_j8tbh")
+texture = ExtResource("2_1xh1i")
 hframes = 10
 vframes = 2
 
@@ -361,13 +374,17 @@ autoplay = "Idle"
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -3)
 
+[node name="EnergyComponent" type="Node2D" parent="."]
+script = ExtResource("8_cmxj3")
+
 [node name="HealthComponent" parent="." instance=ExtResource("6_pg0jp")]
 MAX_HEALTH = 10000.0
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_jt00d")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "energy_component") instance=ExtResource("7_jt00d")]
 collision_layer = 65
 collision_mask = 65
 health_component = NodePath("../HealthComponent")
+energy_component = NodePath("../EnergyComponent")
 hitbox_category = "player"
 
 [node name="Hitbox" type="CollisionShape2D" parent="HitboxComponent"]
@@ -395,7 +412,7 @@ texture_scale = 0.3
 
 [node name="PlayerLight" type="PointLight2D" parent="."]
 position = Vector2(-1, -25)
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 energy = 0.4
 texture = SubResource("GradientTexture2D_28vyl")
 
@@ -447,6 +464,10 @@ player = NodePath("../..")
 script = ExtResource("15_weswi")
 player = NodePath("../..")
 
+[node name="PlayerRegen" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("19_hdepx")
+player = NodePath("../..")
+
 [node name="HealthLabel" type="Label" parent="." node_paths=PackedStringArray("player")]
 visible = false
 offset_left = -47.0
@@ -458,7 +479,6 @@ script = ExtResource("15_y5t8s")
 player = NodePath("..")
 
 [node name="EnergyLabel" type="Label" parent="." node_paths=PackedStringArray("player")]
-visible = false
 offset_left = -47.0
 offset_top = -70.0
 offset_right = 15.0
@@ -482,6 +502,7 @@ stream = ExtResource("18_h5ilf")
 volume_db = -20.0
 
 [node name="DebugPlayerState" type="Label" parent="." node_paths=PackedStringArray("state_machine", "player")]
+visible = false
 offset_left = -45.0
 offset_top = 47.0
 offset_right = -5.0
@@ -496,6 +517,13 @@ stream = ExtResource("19_5cohq")
 [node name="Jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_c07is")
 volume_db = -10.0
+
+[node name="WallCheckBody" type="CharacterBody2D" parent="."]
+collision_layer = 0
+script = ExtResource("27_73amp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCheckBody"]
+shape = SubResource("CircleShape2D_ard38")
 
 [connection signal="timeout" from="IncrementHealth" to="." method="_on_increment_health_timeout"]
 [connection signal="area_entered" from="AttackComponent" to="." method="_on_attack_component_area_entered"]

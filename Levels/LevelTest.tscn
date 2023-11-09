@@ -84,11 +84,18 @@ drag_right_margin = 0.1
 [node name="Links" type="Node2D" parent="."]
 position = Vector2(6, 8)
 
-[node name="Ball" parent="Links" instance=ExtResource("3_rxoik")]
+[node name="Ball" parent="Links" node_paths=PackedStringArray("sprite_canvas_item") instance=ExtResource("3_rxoik")]
 position = Vector2(749, 1041)
+sprite_canvas_item = NodePath("")
 
-[node name="Player" parent="Links" instance=ExtResource("4_qpmev")]
+[node name="Player" parent="Links" node_paths=PackedStringArray("health_component", "audio_landing", "audio_footsteps", "audio_jump", "state_machine", "inventory") instance=ExtResource("4_qpmev")]
 position = Vector2(105, 1019)
+health_component = NodePath("")
+audio_landing = NodePath("")
+audio_footsteps = NodePath("")
+audio_jump = NodePath("")
+state_machine = NodePath("")
+inventory = NodePath("")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Links/Player"]
 remote_path = NodePath("../../../Camera2D")
@@ -259,6 +266,5 @@ shape = SubResource("RectangleShape2D_cmn76")
 position = Vector2(202, 894)
 
 [connection signal="enemy_killed_signal" from="." to="Links/Player" method="_on_test_level_enemy_killed_signal"]
-[connection signal="ball_thrown_signal" from="Links/Player" to="Links/Ball" method="_on_player_ball_thrown_signal"]
 [connection signal="new_firefly" from="Spawner6" to="." method="_on_spawner_6_new_firefly"]
 [connection signal="timeout" from="player_attack_global_timer" to="." method="_on_player_attack_global_timer_timeout"]
