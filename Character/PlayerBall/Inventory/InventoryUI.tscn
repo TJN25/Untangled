@@ -1,0 +1,536 @@
+[gd_scene load_steps=5 format=3 uid="uid://pfhfsrqicc1m"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/inventory_ui.gd" id="1_0hxxs"]
+[ext_resource type="Resource" uid="uid://dermejs7ua64a" path="res://Character/PlayerBall/Inventory/Resources/available_slot.tres" id="2_4v0d5"]
+[ext_resource type="Resource" uid="uid://0rxok8qslwnf" path="res://Character/PlayerBall/Inventory/Resources/hidden_slot.tres" id="2_ec2gy"]
+[ext_resource type="PackedScene" uid="uid://kwnbqbxt7vy1" path="res://Character/PlayerBall/Inventory/inventory_ui_slot.tscn" id="2_j4gra"]
+
+[node name="InventoryUI" type="Control" node_paths=PackedStringArray("ball_container_in_use", "extra_ball_container", "bonus_powerups_in_use", "bonus_powerups_not_in_use", "player_powerups_container")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0hxxs")
+ball_container_in_use = NodePath("NinePatchRect/InUseBalls")
+extra_ball_container = NodePath("NinePatchRect/ExtraBalls")
+bonus_powerups_in_use = NodePath("NinePatchRect/PowerupsInUse")
+bonus_powerups_not_in_use = NodePath("NinePatchRect/ExtraPowerUps")
+player_powerups_container = NodePath("NinePatchRect/PlayerPowerUps")
+hidden_slot = ExtResource("2_ec2gy")
+available_slot = ExtResource("2_4v0d5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -205.0
+offset_top = -125.0
+offset_right = 209.0
+offset_bottom = 92.0
+color = Color(0, 0, 0.470588, 0.552941)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = -11.5
+offset_top = 72.5
+offset_right = 28.5
+offset_bottom = 95.5
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerLabel" type="Label" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = -137.5
+offset_top = -70.25
+offset_right = -88.5
+offset_bottom = -44.25
+text = "Player"
+
+[node name="InUseLabel" type="Label" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = -15.5
+offset_top = -70.25
+offset_right = 33.5
+offset_bottom = -44.25
+text = "In Use"
+
+[node name="ExtraLabel" type="Label" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = -70.25
+offset_right = 177.0
+offset_bottom = -44.25
+text = "Extra
+"
+
+[node name="PlayerPowerUps" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = -142.25
+offset_top = -43.0
+offset_right = -81.25
+offset_bottom = 73.0
+columns = 3
+
+[node name="InventoryUISlot" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_type = "player"
+
+[node name="InventoryUISlot2" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 1
+slot_type = "player"
+
+[node name="InventoryUISlot3" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 2
+slot_type = "player"
+
+[node name="InventoryUISlot4" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 3
+slot_type = "player"
+
+[node name="InventoryUISlot5" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 4
+slot_type = "player"
+
+[node name="InventoryUISlot6" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 5
+slot_type = "player"
+
+[node name="InventoryUISlot7" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 6
+slot_type = "player"
+
+[node name="InventoryUISlot8" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 7
+slot_type = "player"
+
+[node name="InventoryUISlot9" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 8
+slot_type = "player"
+
+[node name="InventoryUISlot10" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 9
+slot_type = "player"
+
+[node name="InventoryUISlot11" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 10
+slot_type = "player"
+
+[node name="InventoryUISlot12" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 11
+slot_type = "player"
+
+[node name="InventoryUISlot13" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 12
+slot_type = "player"
+
+[node name="InventoryUISlot14" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 13
+slot_type = "player"
+
+[node name="InventoryUISlot15" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 14
+slot_type = "player"
+
+[node name="InventoryUISlot16" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 15
+slot_type = "player"
+
+[node name="InventoryUISlot17" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 16
+slot_type = "player"
+
+[node name="InventoryUISlot18" parent="NinePatchRect/PlayerPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 17
+slot_type = "player"
+
+[node name="InUseBalls" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = -46.75
+offset_top = -43.0
+offset_right = 69.25
+offset_bottom = -3.0
+columns = 6
+
+[node name="InventoryUISlot" parent="NinePatchRect/InUseBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot2" parent="NinePatchRect/InUseBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 1
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot3" parent="NinePatchRect/InUseBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 2
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot4" parent="NinePatchRect/InUseBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 3
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot5" parent="NinePatchRect/InUseBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 4
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot6" parent="NinePatchRect/InUseBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 5
+slot_type = "ball_in_use"
+
+[node name="PowerupsInUse" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = -46.75
+offset_top = -18.75
+offset_right = 69.25
+offset_bottom = 21.25
+columns = 6
+
+[node name="InventoryUISlot" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot2" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 4
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot3" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 8
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot4" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 12
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot5" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 16
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot6" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 20
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot7" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 1
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot8" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 5
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot9" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 9
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot10" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 13
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot11" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 17
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot12" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 21
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot13" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 2
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot14" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 6
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot15" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 10
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot16" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 14
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot17" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 18
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot18" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 22
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot19" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 3
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot20" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 7
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot21" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 11
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot22" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 15
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot23" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 19
+slot_type = "powerup_in_use"
+
+[node name="InventoryUISlot24" parent="NinePatchRect/PowerupsInUse" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 23
+slot_type = "powerup_in_use"
+
+[node name="ExtraPowerUps" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 91.75
+offset_top = 9.25
+offset_right = 207.75
+offset_bottom = 49.25
+columns = 6
+
+[node name="InventoryUISlot" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot2" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 1
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot3" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 2
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot4" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 3
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot5" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 4
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot6" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 5
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot7" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 6
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot8" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 7
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot9" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 8
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot10" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 9
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot11" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 10
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot12" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 11
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot13" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 12
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot14" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 13
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot15" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 14
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot16" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 15
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot17" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 16
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot18" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 17
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot19" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 18
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot20" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 19
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot21" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 20
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot22" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 21
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot23" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 22
+slot_type = "extra_powerup"
+
+[node name="InventoryUISlot24" parent="NinePatchRect/ExtraPowerUps" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 23
+slot_type = "extra_powerup"
+
+[node name="ExtraBalls" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 91.75
+offset_top = -42.5
+offset_right = 207.75
+offset_bottom = -2.5
+columns = 6
+
+[node name="InventoryUISlot" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot2" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 1
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot4" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 2
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot5" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 3
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot6" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 4
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot7" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 5
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot8" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 6
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot9" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 7
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot10" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 8
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot11" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 9
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot12" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 10
+slot_type = "extra_ball"
+
+[node name="InventoryUISlot3" parent="NinePatchRect/ExtraBalls" instance=ExtResource("2_j4gra")]
+layout_mode = 2
+slot_number = 11
+slot_type = "extra_ball"

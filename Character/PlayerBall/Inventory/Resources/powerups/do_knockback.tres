@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="InventoryPowerup" load_steps=3 format=3 uid="uid://ydtxtvlremst"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/inventory_powerup.gd" id="1_wevku"]
+[ext_resource type="Texture2D" uid="uid://dgb3d4ltvxr3o" path="res://assests/sprites/powerup.png" id="2_dokui"]
+
+[resource]
+script = ExtResource("1_wevku")
+name = "do_knockback"
+texture = ExtResource("2_dokui")
+colour = Color(0.768627, 0.227451, 0, 1)
+INCREMENT_FEATURE = false
+MODIFY_PLAYER_VALUES = true
+_can_wall_jump = false
+_can_drag = false
+_can_dash = true
+_can_vertical_dash = true
+_can_diagonal_dash = true
+_max_jumps = -1
+_max_throws = -1
+_dash_speed = -350.0
+_ball_max_speed = 1500.0
+_ball_speed = 90.0
+_return_speed = -1.0
+_return_distance = -1.0
+_player_max_speed = -1.0
+_player_speed = -1.0
+_throw_animation_time = 0.1
+_ball_attack_damage = 50.0
+_max_dash_time = 0.05
+_player_hit_range = -1.0
+_player_attack_damage = -1.0
+_cost = -1.0

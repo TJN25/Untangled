@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://kwnbqbxt7vy1"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/inventory_ui_slot.gd" id="1_2ct76"]
+[ext_resource type="Texture2D" uid="uid://88axtq0adlgy" path="res://assests/sprites/inv_tile.png" id="2_vfogg"]
+
+[node name="InventoryUISlot" type="Panel"]
+custom_minimum_size = Vector2(16, 16)
+script = ExtResource("1_2ct76")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vfogg")
+centered = false
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="ItemDisplay" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+scale = Vector2(0.25, 0.25)
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

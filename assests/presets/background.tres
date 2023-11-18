@@ -1,0 +1,13 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dmvalb2l76b82"]
+
+[ext_resource type="Texture2D" uid="uid://dyxeut8627uk3" path="res://assests/tiles/background_grey.png" id="1_qmsjn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_olix4"]
+texture = ExtResource("1_qmsjn")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(64, 64)
+occlusion_layer_0/light_mask = 1
+sources/0 = SubResource("TileSetAtlasSource_olix4")

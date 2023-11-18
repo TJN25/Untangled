@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbx87dka5cdyg"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/Inventory.gd" id="1_6fvv3"]
+[ext_resource type="Resource" uid="uid://ydtxtvlremst" path="res://Character/PlayerBall/Inventory/Resources/powerups/do_knockback.tres" id="3_aejlj"]
+
+[node name="Inventory" type="Node"]
+script = ExtResource("1_6fvv3")
+powerups_in_use = {
+"BasicBall": [],
+"BounceBall": [],
+"KnockbackBall": [ExtResource("3_aejlj")],
+"LargeLight": [],
+"MoveBall": [],
+"Player": [],
+"SmashBall": [],
+"StickBall": []
+}

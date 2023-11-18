@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn6tmvsy5alev"]
+
+[ext_resource type="Script" path="res://Levels/LevelController.gd" id="1_1smxc"]
+[ext_resource type="PackedScene" uid="uid://ddhyn3c4rk67n" path="res://Levels/CavesRoom0.tscn" id="2_1evwt"]
+[ext_resource type="PackedScene" uid="uid://dpfjf0fmrv6db" path="res://Levels/CavesRoom1.tscn" id="3_qwg6x"]
+[ext_resource type="PackedScene" uid="uid://c8monwqblo8ye" path="res://Levels/CavesRoom2.tscn" id="4_oi86w"]
+[ext_resource type="PackedScene" uid="uid://bqygte77t65ww" path="res://Levels/CavesRoom3.tscn" id="5_pfsdi"]
+[ext_resource type="PackedScene" uid="uid://dv8r6l5r0bgjr" path="res://Levels/CavesRoom4.tscn" id="6_bfel5"]
+[ext_resource type="PackedScene" uid="uid://id1grl4ylmm7" path="res://Levels/CavesRoom5.tscn" id="7_66h3k"]
+
+[node name="LevelController" type="Node2D"]
+script = ExtResource("1_1smxc")
+rooms = {
+"caves_0": ExtResource("2_1evwt"),
+"caves_1": ExtResource("3_qwg6x"),
+"caves_2": ExtResource("4_oi86w"),
+"caves_3": ExtResource("5_pfsdi"),
+"caves_4": ExtResource("6_bfel5"),
+"caves_5": ExtResource("7_66h3k")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

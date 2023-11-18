@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://j4bwqijr1ja5"]
+
+[ext_resource type="Script" path="res://Objects/Brambles/Brambles.gd" id="1_bhamq"]
+[ext_resource type="PackedScene" uid="uid://d4el66i48f5fd" path="res://Objects/Brambles/BramblesBlock/brambles_block.tscn" id="2_oktw8"]
+
+[node name="Brambles" type="Area2D"]
+script = ExtResource("1_bhamq")
+brambles_block = ExtResource("2_oktw8")

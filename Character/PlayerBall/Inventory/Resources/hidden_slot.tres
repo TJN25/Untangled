@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://0rxok8qslwnf"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/inventory_item.gd" id="1_cs00e"]
+[ext_resource type="Texture2D" uid="uid://dyxeut8627uk3" path="res://assests/tiles/background_grey.png" id="2_a7ofo"]
+
+[resource]
+script = ExtResource("1_cs00e")
+name = "hidden_slot"
+texture = ExtResource("2_a7ofo")
+colour = Color(0, 0, 0, 1)

@@ -1,0 +1,103 @@
+[gd_scene load_steps=16 format=3 uid="uid://b4qiia68xb1rn"]
+
+[ext_resource type="Texture2D" uid="uid://j3ci06tk5wv7" path="res://assests/sprites/ball_grey.png" id="1_4oaho"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/WallCheck.gd" id="1_8nm0n"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Ball/ball.gd" id="1_kvqet"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Ball/BallStateMachine.gd" id="3_2uryl"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Ball/DebugLabel.gd" id="3_w8rc6"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Ball/states/BallFollow.gd" id="5_cg6s1"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Ball/states/BallThrow.gd" id="7_mk461"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Ball/states/BallReturn.gd" id="8_la2wm"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Ball/states/BallKnockback.gd" id="9_2f545"]
+[ext_resource type="Script" path="res://Objects/HitboxComponent/hitbox_component.gd" id="9_ridec"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dmqt0"]
+radius = 19.0263
+
+[sub_resource type="Gradient" id="Gradient_k8kmv"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s8bm2"]
+gradient = SubResource("Gradient_k8kmv")
+width = 900
+height = 900
+fill = 1
+fill_from = Vector2(0.477064, 0.488532)
+fill_to = Vector2(0.853211, 0.178899)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_buy1y"]
+size = Vector2(9, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ebkv7"]
+radius = 30.0
+
+[node name="Ball" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_kvqet")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4oaho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dmqt0")
+
+[node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("ball", "state_machine")]
+visible = false
+offset_left = -14.0
+offset_top = -41.0
+offset_right = 26.0
+offset_bottom = -18.0
+script = ExtResource("3_w8rc6")
+ball = NodePath("..")
+state_machine = NodePath("../BallStateMachine")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.9
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_s8bm2")
+
+[node name="WallCheck" type="CharacterBody2D" parent="."]
+process_mode = 4
+collision_layer = 0
+script = ExtResource("1_8nm0n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCheck"]
+shape = SubResource("RectangleShape2D_buy1y")
+
+[node name="BallStateMachine" type="Node" parent="." node_paths=PackedStringArray("inital_state")]
+script = ExtResource("3_2uryl")
+inital_state = NodePath("BallFollow")
+
+[node name="BallFollow" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("5_cg6s1")
+ball = NodePath("../..")
+
+[node name="BallThrow" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("7_mk461")
+ball = NodePath("../..")
+
+[node name="BallReturn" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("8_la2wm")
+ball = NodePath("../..")
+
+[node name="BallKnockback" type="Node" parent="BallStateMachine" node_paths=PackedStringArray("ball")]
+script = ExtResource("9_2f545")
+ball = NodePath("../..")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 200.0
+
+[node name="NavTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("9_ridec")
+hitbox_category = "ball"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_ebkv7")
+
+[connection signal="timeout" from="NavTimer" to="." method="_on_nav_timer_timeout"]

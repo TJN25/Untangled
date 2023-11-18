@@ -1,0 +1,249 @@
+[gd_scene load_steps=26 format=3 uid="uid://cr21lu8m56mmb"]
+
+[ext_resource type="TileSet" uid="uid://dmvalb2l76b82" path="res://assests/presets/background.tres" id="1_41lsj"]
+[ext_resource type="TileSet" uid="uid://b651xrpvqi2yt" path="res://assests/tiles/moss.tres" id="1_j6ou0"]
+[ext_resource type="Script" path="res://Levels/Room.gd" id="1_mc5nm"]
+[ext_resource type="Texture2D" uid="uid://otftooduyot5" path="res://assests/tiles/Mossy - TileSet.png" id="2_bese4"]
+[ext_resource type="TileSet" uid="uid://cx4xuue8270dq" path="res://assests/presets/foreground.tres" id="2_bgdfg"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/Slots.gd" id="3_ig15g"]
+[ext_resource type="Script" path="res://Objects/Item/Items.gd" id="4_e2qmr"]
+[ext_resource type="Resource" uid="uid://0rxok8qslwnf" path="res://Character/PlayerBall/Inventory/Resources/hidden_slot.tres" id="4_nyd8e"]
+[ext_resource type="Resource" uid="uid://dermejs7ua64a" path="res://Character/PlayerBall/Inventory/Resources/available_slot.tres" id="5_2hk5a"]
+[ext_resource type="Script" path="res://Objects/Brambles/Brambles.gd" id="5_hljfi"]
+[ext_resource type="PackedScene" uid="uid://kwnbqbxt7vy1" path="res://Character/PlayerBall/Inventory/inventory_ui_slot.tscn" id="6_5dsrk"]
+[ext_resource type="Script" path="res://Objects/Brambles/BramblesMarkers.gd" id="6_mxbff"]
+[ext_resource type="PackedScene" uid="uid://pfhfsrqicc1m" path="res://Character/PlayerBall/Inventory/InventoryUI.tscn" id="7_2ntsd"]
+[ext_resource type="PackedScene" uid="uid://d1lnot3rb16q3" path="res://Character/PlayerBall/player_ball_controller.tscn" id="9_poxq7"]
+[ext_resource type="PackedScene" uid="uid://fqw8a17ppgsg" path="res://Objects/Exit/exit.tscn" id="15_2v41t"]
+[ext_resource type="Script" path="res://Levels/EnergyLevel.gd" id="15_86vvx"]
+[ext_resource type="PackedScene" uid="uid://dbn8vr5soqw2g" path="res://Objects/Exit/exits.tscn" id="16_2g3na"]
+[ext_resource type="Script" path="res://Objects/Exit/exits.gd" id="17_6ng0l"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vvcv2"]
+vertices = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)])
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2o364"]
+texture = ExtResource("2_bese4")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vvcv2")
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_mnh81"]
+tile_size = Vector2i(64, 64)
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_2o364")
+
+[sub_resource type="Theme" id="Theme_v6jlv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s551p"]
+bg_color = Color(0.247059, 0.615686, 0.968627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oc7s3"]
+bg_color = Color(0.866667, 0.482353, 0.278431, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14l80"]
+size = Vector2(275, 26)
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_mc5nm")
+
+[node name="NavigationLayer" type="TileMap" parent="."]
+z_index = -1000
+tile_set = SubResource("TileSet_mnh81")
+cell_quadrant_size = 64
+format = 2
+
+[node name="Background" type="TileMap" parent="."]
+z_index = -100
+tile_set = ExtResource("1_41lsj")
+cell_quadrant_size = 64
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 458752, 0, 0, 524288, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 786432, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1, 0, 0, 65537, 0, 0, 131073, 0, 0, 196609, 0, 0, 262145, 0, 0, 327681, 0, 0, 393217, 0, 0, 458753, 0, 0, 524289, 0, 0, 589825, 0, 0, 655361, 0, 0, 720897, 0, 0, 786433, 0, 0, 851969, 0, 0, 917505, 0, 0, 983041, 0, 0, 1048577, 0, 0, 2, 0, 0, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0, 458754, 0, 0, 524290, 0, 0, 589826, 0, 0, 655362, 0, 0, 720898, 0, 0, 786434, 0, 0, 851970, 0, 0, 917506, 0, 0, 983042, 0, 0, 1048578, 0, 0, 3, 0, 0, 65539, 0, 0, 131075, 0, 0, 196611, 0, 0, 262147, 0, 0, 327683, 0, 0, 393219, 0, 0, 458755, 0, 0, 524291, 0, 0, 589827, 0, 0, 655363, 0, 0, 720899, 0, 0, 786435, 0, 0, 851971, 0, 0, 917507, 0, 0, 983043, 0, 0, 1048579, 0, 0, 4, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0, 327684, 0, 0, 393220, 0, 0, 458756, 0, 0, 524292, 0, 0, 589828, 0, 0, 655364, 0, 0, 720900, 0, 0, 786436, 0, 0, 851972, 0, 0, 917508, 0, 0, 983044, 0, 0, 1048580, 0, 0, 5, 0, 0, 65541, 0, 0, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 327685, 0, 0, 393221, 0, 0, 458757, 0, 0, 524293, 0, 0, 589829, 0, 0, 655365, 0, 0, 720901, 0, 0, 786437, 0, 0, 851973, 0, 0, 917509, 0, 0, 983045, 0, 0, 1048581, 0, 0, 6, 0, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 262150, 0, 0, 327686, 0, 0, 393222, 0, 0, 458758, 0, 0, 524294, 0, 0, 589830, 0, 0, 655366, 0, 0, 720902, 0, 0, 786438, 0, 0, 851974, 0, 0, 917510, 0, 0, 983046, 0, 0, 1048582, 0, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 0, 0, 262151, 0, 0, 327687, 0, 0, 393223, 0, 0, 458759, 0, 0, 524295, 0, 0, 589831, 0, 0, 655367, 0, 0, 720903, 0, 0, 786439, 0, 0, 851975, 0, 0, 917511, 0, 0, 983047, 0, 0, 1048583, 0, 0, 8, 0, 0, 65544, 0, 0, 131080, 0, 0, 196616, 0, 0, 262152, 0, 0, 327688, 0, 0, 393224, 0, 0, 458760, 0, 0, 524296, 0, 0, 589832, 0, 0, 655368, 0, 0, 720904, 0, 0, 786440, 0, 0, 851976, 0, 0, 917512, 0, 0, 983048, 0, 0, 1048584, 0, 0, 9, 0, 0, 65545, 0, 0, 131081, 0, 0, 196617, 0, 0, 262153, 0, 0, 327689, 0, 0, 393225, 0, 0, 458761, 0, 0, 524297, 0, 0, 589833, 0, 0, 655369, 0, 0, 720905, 0, 0, 786441, 0, 0, 851977, 0, 0, 917513, 0, 0, 983049, 0, 0, 1048585, 0, 0, 10, 0, 0, 65546, 0, 0, 131082, 0, 0, 196618, 0, 0, 262154, 0, 0, 327690, 0, 0, 393226, 0, 0, 458762, 0, 0, 524298, 0, 0, 589834, 0, 0, 655370, 0, 0, 720906, 0, 0, 786442, 0, 0, 851978, 0, 0, 917514, 0, 0, 983050, 0, 0, 1048586, 0, 0, 11, 0, 0, 65547, 0, 0, 131083, 0, 0, 196619, 0, 0, 262155, 0, 0, 327691, 0, 0, 393227, 0, 0, 458763, 0, 0, 524299, 0, 0, 589835, 0, 0, 655371, 0, 0, 720907, 0, 0, 786443, 0, 0, 851979, 0, 0, 917515, 0, 0, 983051, 0, 0, 1048587, 0, 0, 12, 0, 0, 65548, 0, 0, 131084, 0, 0, 196620, 0, 0, 262156, 0, 0, 327692, 0, 0, 393228, 0, 0, 458764, 0, 0, 524300, 0, 0, 589836, 0, 0, 655372, 0, 0, 720908, 0, 0, 786444, 0, 0, 851980, 0, 0, 917516, 0, 0, 983052, 0, 0, 1048588, 0, 0, 13, 0, 0, 65549, 0, 0, 131085, 0, 0, 196621, 0, 0, 262157, 0, 0, 327693, 0, 0, 393229, 0, 0, 458765, 0, 0, 524301, 0, 0, 589837, 0, 0, 655373, 0, 0, 720909, 0, 0, 786445, 0, 0, 851981, 0, 0, 917517, 0, 0, 983053, 0, 0, 1048589, 0, 0, 14, 0, 0, 65550, 0, 0, 131086, 0, 0, 196622, 0, 0, 262158, 0, 0, 327694, 0, 0, 393230, 0, 0, 458766, 0, 0, 524302, 0, 0, 589838, 0, 0, 655374, 0, 0, 720910, 0, 0, 786446, 0, 0, 851982, 0, 0, 917518, 0, 0, 983054, 0, 0, 1048590, 0, 0, 15, 0, 0, 65551, 0, 0, 131087, 0, 0, 196623, 0, 0, 262159, 0, 0, 327695, 0, 0, 393231, 0, 0, 458767, 0, 0, 524303, 0, 0, 589839, 0, 0, 655375, 0, 0, 720911, 0, 0, 786447, 0, 0, 851983, 0, 0, 917519, 0, 0, 983055, 0, 0, 1048591, 0, 0, 16, 0, 0, 65552, 0, 0, 131088, 0, 0, 196624, 0, 0, 262160, 0, 0, 327696, 0, 0, 393232, 0, 0, 458768, 0, 0, 524304, 0, 0, 589840, 0, 0, 655376, 0, 0, 720912, 0, 0, 786448, 0, 0, 851984, 0, 0, 917520, 0, 0, 983056, 0, 0, 1048592, 0, 0, 17, 0, 0, 65553, 0, 0, 131089, 0, 0, 196625, 0, 0, 262161, 0, 0, 327697, 0, 0, 393233, 0, 0, 458769, 0, 0, 524305, 0, 0, 589841, 0, 0, 655377, 0, 0, 720913, 0, 0, 786449, 0, 0, 851985, 0, 0, 917521, 0, 0, 983057, 0, 0, 1048593, 0, 0, 18, 0, 0, 65554, 0, 0, 131090, 0, 0, 196626, 0, 0, 262162, 0, 0, 327698, 0, 0, 393234, 0, 0, 458770, 0, 0, 524306, 0, 0, 589842, 0, 0, 655378, 0, 0, 720914, 0, 0, 786450, 0, 0, 851986, 0, 0, 917522, 0, 0, 983058, 0, 0, 1048594, 0, 0, 19, 0, 0, 65555, 0, 0, 131091, 0, 0, 196627, 0, 0, 262163, 0, 0, 327699, 0, 0, 393235, 0, 0, 458771, 0, 0, 524307, 0, 0, 589843, 0, 0, 655379, 0, 0, 720915, 0, 0, 786451, 0, 0, 851987, 0, 0, 917523, 0, 0, 983059, 0, 0, 1048595, 0, 0, 20, 0, 0, 65556, 0, 0, 131092, 0, 0, 196628, 0, 0, 262164, 0, 0, 327700, 0, 0, 393236, 0, 0, 458772, 0, 0, 524308, 0, 0, 589844, 0, 0, 655380, 0, 0, 720916, 0, 0, 786452, 0, 0, 851988, 0, 0, 917524, 0, 0, 983060, 0, 0, 1048596, 0, 0, 21, 0, 0, 65557, 0, 0, 131093, 0, 0, 196629, 0, 0, 262165, 0, 0, 327701, 0, 0, 393237, 0, 0, 458773, 0, 0, 524309, 0, 0, 589845, 0, 0, 655381, 0, 0, 720917, 0, 0, 786453, 0, 0, 851989, 0, 0, 917525, 0, 0, 983061, 0, 0, 1048597, 0, 0, 22, 0, 0, 65558, 0, 0, 131094, 0, 0, 196630, 0, 0, 262166, 0, 0, 327702, 0, 0, 393238, 0, 0, 458774, 0, 0, 524310, 0, 0, 589846, 0, 0, 655382, 0, 0, 720918, 0, 0, 786454, 0, 0, 851990, 0, 0, 917526, 0, 0, 983062, 0, 0, 1048598, 0, 0, 23, 0, 0, 65559, 0, 0, 131095, 0, 0, 196631, 0, 0, 262167, 0, 0, 327703, 0, 0, 393239, 0, 0, 458775, 0, 0, 524311, 0, 0, 589847, 0, 0, 655383, 0, 0, 720919, 0, 0, 786455, 0, 0, 851991, 0, 0, 917527, 0, 0, 983063, 0, 0, 1048599, 0, 0, 24, 0, 0, 65560, 0, 0, 131096, 0, 0, 196632, 0, 0, 262168, 0, 0, 327704, 0, 0, 393240, 0, 0, 458776, 0, 0, 524312, 0, 0, 589848, 0, 0, 655384, 0, 0, 720920, 0, 0, 786456, 0, 0, 851992, 0, 0, 917528, 0, 0, 983064, 0, 0, 1048600, 0, 0, 25, 0, 0, 65561, 0, 0, 131097, 0, 0, 196633, 0, 0, 262169, 0, 0, 327705, 0, 0, 393241, 0, 0, 458777, 0, 0, 524313, 0, 0, 589849, 0, 0, 655385, 0, 0, 720921, 0, 0, 786457, 0, 0, 851993, 0, 0, 917529, 0, 0, 983065, 0, 0, 1048601, 0, 0, 26, 0, 0, 65562, 0, 0, 131098, 0, 0, 196634, 0, 0, 262170, 0, 0, 327706, 0, 0, 393242, 0, 0, 458778, 0, 0, 524314, 0, 0, 589850, 0, 0, 655386, 0, 0, 720922, 0, 0, 786458, 0, 0, 851994, 0, 0, 917530, 0, 0, 983066, 0, 0, 1048602, 0, 0, 27, 0, 0, 65563, 0, 0, 131099, 0, 0, 196635, 0, 0, 262171, 0, 0, 327707, 0, 0, 393243, 0, 0, 458779, 0, 0, 524315, 0, 0, 589851, 0, 0, 655387, 0, 0, 720923, 0, 0, 786459, 0, 0, 851995, 0, 0, 917531, 0, 0, 983067, 0, 0, 1048603, 0, 0, 28, 0, 0, 65564, 0, 0, 131100, 0, 0, 196636, 0, 0, 262172, 0, 0, 327708, 0, 0, 393244, 0, 0, 458780, 0, 0, 524316, 0, 0, 589852, 0, 0, 655388, 0, 0, 720924, 0, 0, 786460, 0, 0, 851996, 0, 0, 917532, 0, 0, 983068, 0, 0, 1048604, 0, 0, 29, 0, 0, 65565, 0, 0, 131101, 0, 0, 196637, 0, 0, 262173, 0, 0, 327709, 0, 0, 393245, 0, 0, 458781, 0, 0, 524317, 0, 0, 589853, 0, 0, 655389, 0, 0, 720925, 0, 0, 786461, 0, 0, 851997, 0, 0, 917533, 0, 0, 983069, 0, 0, 1048605, 0, 0)
+
+[node name="PlayerBallController" parent="." node_paths=PackedStringArray("camera_marker") instance=ExtResource("9_poxq7")]
+position = Vector2(120, 967)
+camera_marker = NodePath("RemoteTransform2D")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PlayerBallController"]
+position = Vector2(-1066, -1395)
+remote_path = NodePath("../../Camera2D")
+
+[node name="Brambles" type="Area2D" parent="."]
+script = ExtResource("5_hljfi")
+
+[node name="BramblesMarkers" type="Node2D" parent="Brambles"]
+script = ExtResource("6_mxbff")
+
+[node name="MainRegion" type="TileMap" parent="."]
+tile_set = ExtResource("1_j6ou0")
+cell_quadrant_size = 64
+format = 2
+layer_0/tile_data = PackedInt32Array(1048576, 262144, 6, 1048577, 65536, 3, 1048579, 65536, 3, 1048578, 65536, 3, 1048580, 65536, 3, 1048581, 65536, 3, 1048582, 65536, 3, 1048584, 65536, 3, 1048583, 65536, 3, 1048585, 65536, 3, 1048586, 65536, 3, 1048587, 65536, 3, 1048588, 65536, 3, 1048589, 65536, 3, 1048590, 65536, 3, 1048591, 65536, 3, 1048592, 65536, 3, 1048593, 65536, 3, 1048594, 65536, 3, 1048595, 65536, 3, 1048596, 65536, 3, 1048597, 65536, 3, 1048598, 65536, 3, 1048599, 65536, 3, 1048600, 65536, 3, 1048601, 65536, 3, 1048602, 65536, 3, 1048603, 65536, 3, 1048604, 65536, 3, 1048605, 393216, 6, 983069, 196608, 1, 917533, 196608, 1, 851997, 196608, 1, 786461, 196608, 1, 720925, 196608, 1, 655389, 196608, 1, 589853, 196608, 1, 524317, 196608, 1, 458781, 196608, 1, 393245, 196608, 1, 327709, 196608, 1, 262173, 196608, 1, 196637, 196608, 1, 131101, 196608, 1, 65565, 196608, 1, 29, 393216, 4, 28, 65536, 3, 27, 65536, 3, 26, 65536, 3, 25, 65536, 3, 24, 65536, 3, 23, 65536, 3, 22, 65536, 3, 21, 65536, 3, 20, 65536, 3, 19, 65536, 3, 18, 65536, 3, 17, 65536, 3, 16, 65536, 3, 15, 65536, 3, 13, 65536, 3, 14, 65536, 3, 12, 65536, 3, 11, 65536, 3, 10, 65536, 3, 9, 65536, 3, 8, 65536, 3, 7, 65536, 3, 6, 65536, 3, 5, 65536, 3, 4, 65536, 3, 3, 65536, 3, 2, 65536, 3, 1, 65536, 3, 0, 262144, 4, 65536, 196608, 1, 131072, 196608, 1, 196608, 196608, 1, 262144, 196608, 1, 524288, 196608, 1, 589824, 196608, 1, 655360, 196608, 1, 458752, 196608, 1, 393216, 196608, 1, 327680, 196608, 1, 720896, 196608, 1, 786432, 196608, 1, 851968, 196608, 1, 917504, 196608, 1, 983040, 196608, 1)
+
+[node name="Items" type="Node" parent="."]
+script = ExtResource("4_e2qmr")
+
+[node name="Foreground" type="TileMap" parent="."]
+tile_set = ExtResource("2_bgdfg")
+cell_quadrant_size = 64
+format = 2
+layer_0/tile_data = PackedInt32Array(983044, 0, 1, 917508, 0, 1, 851972, 0, 1, 786436, 0, 0, 786437, 131072, 0, 851973, 131072, 1, 917509, 131072, 1, 983045, 131072, 1, 1048581, 131072, 5, 1048580, 196608, 5, 1048579, 65536, 3, 1048582, 65536, 3, 1048583, 65536, 3, 1048578, 65536, 3, 1048584, 65536, 3, 1048577, 0, 3, 1048585, 131072, 3)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-946, -428)
+offset = Vector2(2.08165e-12, 2.08165e-12)
+zoom = Vector2(0.3, 0.3)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+
+[node name="Spawners" type="Node" parent="."]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.9
+blend_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Slots" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("ball_container_in_use", "player_ball_controller")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -29.0
+offset_top = 57.0
+offset_right = 39.0
+offset_bottom = 97.0
+grow_horizontal = 2
+script = ExtResource("3_ig15g")
+ball_container_in_use = NodePath("InUseBalls")
+player_ball_controller = NodePath("../../PlayerBallController")
+hidden_slot = ExtResource("4_nyd8e")
+available_slot = ExtResource("5_2hk5a")
+metadata/_edit_use_anchors_ = true
+
+[node name="InUseBalls" type="GridContainer" parent="CanvasLayer/Slots"]
+layout_mode = 0
+offset_left = -46.75
+offset_top = -43.0
+offset_right = 69.25
+offset_bottom = -3.0
+columns = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="InventoryUISlot" parent="CanvasLayer/Slots/InUseBalls" instance=ExtResource("6_5dsrk")]
+layout_mode = 2
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot2" parent="CanvasLayer/Slots/InUseBalls" instance=ExtResource("6_5dsrk")]
+layout_mode = 2
+slot_number = 1
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot3" parent="CanvasLayer/Slots/InUseBalls" instance=ExtResource("6_5dsrk")]
+layout_mode = 2
+slot_number = 2
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot4" parent="CanvasLayer/Slots/InUseBalls" instance=ExtResource("6_5dsrk")]
+layout_mode = 2
+slot_number = 3
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot5" parent="CanvasLayer/Slots/InUseBalls" instance=ExtResource("6_5dsrk")]
+layout_mode = 2
+slot_number = 4
+slot_type = "ball_in_use"
+
+[node name="InventoryUISlot6" parent="CanvasLayer/Slots/InUseBalls" instance=ExtResource("6_5dsrk")]
+layout_mode = 2
+slot_number = 5
+slot_type = "ball_in_use"
+
+[node name="EnergyBar" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyLevel" type="ProgressBar" parent="CanvasLayer/EnergyBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.475
+anchor_bottom = -0.475
+offset_right = 91.0
+offset_bottom = 27.0
+theme = SubResource("Theme_v6jlv")
+theme_override_styles/background = SubResource("StyleBoxFlat_s551p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_oc7s3")
+value = 50.0
+show_percentage = false
+script = ExtResource("15_86vvx")
+metadata/_edit_use_anchors_ = true
+
+[node name="InventoryUI" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("7_2ntsd")]
+player = NodePath("../../PlayerBallController")
+metadata/_edit_use_anchors_ = true
+
+[node name="Exits" parent="." instance=ExtResource("16_2g3na")]
+script = ExtResource("17_6ng0l")
+
+[node name="Exit" parent="Exits" instance=ExtResource("15_2v41t")]
+position = Vector2(650, 842)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/Exit"]
+position = Vector2(0, 89.5)
+shape = SubResource("RectangleShape2D_14l80")
+
+[node name="Marker2D" type="Marker2D" parent="Exits/Exit"]

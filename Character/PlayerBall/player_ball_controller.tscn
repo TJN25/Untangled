@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1lnot3rb16q3"]
+
+[ext_resource type="PackedScene" uid="uid://bgux1iaspvtjm" path="res://Character/PlayerBall/Player/player.tscn" id="1_hrjem"]
+[ext_resource type="Script" path="res://Character/PlayerBall/player_ball_controller.gd" id="1_qpxtv"]
+[ext_resource type="PackedScene" uid="uid://b4qiia68xb1rn" path="res://Character/PlayerBall/Ball/ball.tscn" id="3_lms6q"]
+[ext_resource type="PackedScene" uid="uid://dbx87dka5cdyg" path="res://Character/PlayerBall/Inventory/Inventory.tscn" id="4_ox7kk"]
+[ext_resource type="Resource" uid="uid://bdghr8r7lo635" path="res://Character/PlayerBall/Inventory/Resources/balls/BasicBall.tres" id="5_diopr"]
+[ext_resource type="Resource" uid="uid://ydtxtvlremst" path="res://Character/PlayerBall/Inventory/Resources/powerups/do_knockback.tres" id="6_i7edb"]
+[ext_resource type="Resource" uid="uid://c4a8ieqr3viah" path="res://Character/PlayerBall/Inventory/Resources/powerups/do_dash.tres" id="7_7yri4"]
+
+[node name="PlayerBallController" type="Node2D" node_paths=PackedStringArray("player", "ball")]
+position = Vector2(2, -5)
+script = ExtResource("1_qpxtv")
+player = NodePath("Player")
+ball = NodePath("Ball")
+
+[node name="Ball" parent="." instance=ExtResource("3_lms6q")]
+position = Vector2(-7, 16)
+
+[node name="Player" parent="." instance=ExtResource("1_hrjem")]
+position = Vector2(10, 20)
+
+[node name="Inventory" parent="." instance=ExtResource("4_ox7kk")]
+balls_in_use = Array[Resource("res://Character/PlayerBall/Inventory/inventory_ball.gd")]([ExtResource("5_diopr")])
+powerups_in_use = {
+"BasicBall": [],
+"BounceBall": [],
+"DashBall": [ExtResource("7_7yri4")],
+"KnockbackBall": [ExtResource("6_i7edb")],
+"LargeLight": [],
+"MoveBall": [],
+"Player": [],
+"SmashBall": [],
+"StickBall": []
+}

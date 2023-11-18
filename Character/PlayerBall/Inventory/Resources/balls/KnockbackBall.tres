@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InventoryBall" load_steps=4 format=3 uid="uid://dnwwk2y0ps7jt"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/inventory_ball.gd" id="1_1y1n0"]
+[ext_resource type="Resource" uid="uid://ydtxtvlremst" path="res://Character/PlayerBall/Inventory/Resources/powerups/do_knockback.tres" id="1_mpxe8"]
+[ext_resource type="Texture2D" uid="uid://j3ci06tk5wv7" path="res://assests/sprites/ball_grey.png" id="2_mr4ox"]
+
+[resource]
+script = ExtResource("1_1y1n0")
+name = "KnockbackBall"
+texture = ExtResource("2_mr4ox")
+colour = Color(0.756863, 0, 0, 1)
+power_ups = [ExtResource("1_mpxe8")]

@@ -1,0 +1,135 @@
+[gd_scene load_steps=19 format=3 uid="uid://bgux1iaspvtjm"]
+
+[ext_resource type="Texture2D" uid="uid://c448sb85q7xra" path="res://assests/sprites/sprite_sheet_idle.png" id="1_eg5ed"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/player.gd" id="1_xmgr2"]
+[ext_resource type="PackedScene" uid="uid://bx1lsnssmpybt" path="res://Character/PlayerBall/Player/player_state_machine.tscn" id="3_yu1e2"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/states/PlayerGround.gd" id="4_0itq1"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/states/PlayerAir.gd" id="5_6giax"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/states/PlayerDash.gd" id="6_6fgpm"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/DebugLabel.gd" id="6_j3yi8"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/WallCheck.gd" id="7_m8ww3"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/states/PlayerKnockback.gd" id="7_pn4s0"]
+[ext_resource type="Script" path="res://Objects/HitboxComponent/hitbox_component.gd" id="9_erw1e"]
+[ext_resource type="Script" path="res://Objects/PlayerEnergy/EnergyComponent.gd" id="10_5wgxl"]
+[ext_resource type="Script" path="res://Objects/Health/HealthComponent.gd" id="11_a2q2e"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/Attackbox.gd" id="13_ns4oi"]
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/KnockbackCollisions.gd" id="14_opk6i"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l12m6"]
+radius = 14.0
+height = 56.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwxup"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kderq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbxuj"]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_xmgr2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_eg5ed")
+hframes = 10
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_l12m6")
+
+[node name="PlayerStateMachine" parent="." node_paths=PackedStringArray("inital_state") instance=ExtResource("3_yu1e2")]
+inital_state = NodePath("PlayerAir")
+
+[node name="PlayerGround" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("4_0itq1")
+player = NodePath("../..")
+
+[node name="PlayerAir" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_6giax")
+player = NodePath("../..")
+
+[node name="PlayerDash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("6_6fgpm")
+player = NodePath("../..")
+
+[node name="PlayerKnockback" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("7_pn4s0")
+player = NodePath("../..")
+
+[node name="DebugLabel" type="Label" parent="." node_paths=PackedStringArray("player", "state_machine")]
+offset_left = -31.0
+offset_top = 51.0
+offset_right = 9.0
+offset_bottom = 74.0
+script = ExtResource("6_j3yi8")
+player = NodePath("..")
+state_machine = NodePath("../PlayerStateMachine")
+
+[node name="WallCheck" type="CharacterBody2D" parent="."]
+collision_layer = 0
+script = ExtResource("7_m8ww3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCheck"]
+shape = SubResource("RectangleShape2D_nwxup")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "energy_component")]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("9_erw1e")
+health_component = NodePath("../HealthComponent")
+energy_component = NodePath("../EnergyComponent")
+hitbox_category = "player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_l12m6")
+
+[node name="EnergyComponent" type="Node2D" parent="."]
+script = ExtResource("10_5wgxl")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("11_a2q2e")
+MAX_HEALTH = 500.0
+
+[node name="Attackbox" type="Area2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("13_ns4oi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attackbox"]
+shape = SubResource("RectangleShape2D_kderq")
+debug_color = Color(0.968627, 0, 0.470588, 0.501961)
+
+[node name="KnockbackCollisions" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("14_opk6i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockbackCollisions"]
+shape = SubResource("RectangleShape2D_tbxuj")
+debug_color = Color(0.619608, 0.533333, 0.0980392, 0.419608)
+
+[node name="RayCast2D" type="RayCast2D" parent="KnockbackCollisions"]
+target_position = Vector2(0, 161)
+collision_mask = 8
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="KnockbackCollisions"]
+target_position = Vector2(99, 0)
+collision_mask = 8
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="RayCast2D3" type="RayCast2D" parent="KnockbackCollisions"]
+target_position = Vector2(0, -97)
+collision_mask = 8
+collide_with_areas = true
+
+[node name="RayCast2D4" type="RayCast2D" parent="KnockbackCollisions"]
+target_position = Vector2(-94, 0)
+collision_mask = 8
+collide_with_areas = true

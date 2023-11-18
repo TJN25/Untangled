@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://fqw8a17ppgsg"]
+
+[ext_resource type="Script" path="res://Objects/Exit/exit.gd" id="1_80x18"]
+
+[node name="Exit" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_80x18")

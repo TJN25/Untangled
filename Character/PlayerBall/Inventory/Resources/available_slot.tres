@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dermejs7ua64a"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Inventory/inventory_item.gd" id="1_jqtu1"]
+[ext_resource type="Texture2D" uid="uid://dyxeut8627uk3" path="res://assests/tiles/background_grey.png" id="2_04i30"]
+
+[resource]
+script = ExtResource("1_jqtu1")
+name = "available_slot"
+texture = ExtResource("2_04i30")
+colour = Color(0, 0, 0, 0)

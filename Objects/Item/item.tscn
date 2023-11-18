@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcrkcbote5vp7"]
+
+[ext_resource type="Script" path="res://Objects/Item/item_component.gd" id="1_d2o25"]
+
+[sub_resource type="Gradient" id="Gradient_ve1na"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_frbcm"]
+gradient = SubResource("Gradient_ve1na")
+fill = 1
+fill_from = Vector2(0.444954, 0.456422)
+
+[node name="Item" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_d2o25")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.1
+texture = SubResource("GradientTexture2D_frbcm")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx1lsnssmpybt"]
+
+[ext_resource type="Script" path="res://Character/PlayerBall/Player/PlayerStateMachine.gd" id="1_jcojd"]
+
+[node name="PlayerStateMachine" type="Node"]
+script = ExtResource("1_jcojd")
