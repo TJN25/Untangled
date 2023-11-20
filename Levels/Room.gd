@@ -49,11 +49,11 @@ func save_room():
 	var json_string = JSON.stringify(node_data)
 	save_game.store_line(json_string)
 	
-#	if not brambles.has_method("save"):
-#		return
-#	node_data = brambles.call("save")
-#	json_string = JSON.stringify(node_data)
-#	save_game.store_line(json_string)
+	if not brambles.has_method("save"):
+		return
+	node_data = brambles.call("save")
+	json_string = JSON.stringify(node_data)
+	save_game.store_line(json_string)
 
 func save_player():
 	var save_game = FileAccess.open("user://saveplayer" + save_id + ".save", FileAccess.WRITE)
@@ -72,11 +72,11 @@ func save_player():
 func load_room():
 	if not FileAccess.file_exists("user://saveroom" + save_id + room_name + ".save"):
 		items.do_item_setup({})
+		brambles.do_brambles_setup([])
 		return
 	var save_game = FileAccess.open("user://saveroom" + save_id + room_name + ".save", FileAccess.READ)
 	var i = 0
 	while save_game.get_position() < save_game.get_length():
-		print(i)
 		i += 1
 		var json_string = save_game.get_line()
 		var json = JSON.new()
@@ -85,9 +85,13 @@ func load_room():
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			continue
 		var node_data = json.get_data()
-		print(node_data)
-		items.collected_items = node_data["collected_items"]
-		items.do_item_setup(node_data["collected_items"])
+#		print(node_data)
+		if "collected_items" in node_data:
+			items.collected_items = node_data["collected_items"]
+			items.do_item_setup(node_data["collected_items"])
+		if "blocks" in node_data:
+			brambles.blocks = node_data["blocks"]
+			brambles.do_brambles_setup(node_data["blocks"])
 
 func load_player():
 	if not FileAccess.file_exists("user://saveplayer" + save_id + ".save"):

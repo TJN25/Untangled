@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqygte77t65ww"]
+[gd_scene load_steps=11 format=3 uid="uid://bqygte77t65ww"]
 
 [ext_resource type="PackedScene" uid="uid://cr21lu8m56mmb" path="res://Levels/Room.tscn" id="1_hr3if"]
 [ext_resource type="PackedScene" uid="uid://d4el66i48f5fd" path="res://Objects/Brambles/BramblesBlock/brambles_block.tscn" id="3_1u2gv"]
@@ -26,6 +26,9 @@ gradient = SubResource("Gradient_unvhs")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a5q0c"]
 size = Vector2(28, 228)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxr70"]
+size = Vector2(212, 36)
 
 [node name="Room" instance=ExtResource("1_hr3if")]
 room_name = "caves_3"
@@ -118,3 +121,18 @@ scale = Vector2(8.39062, 4.96595)
 blend_mode = 1
 range_z_max = -1
 texture = SubResource("GradientTexture2D_swcx0")
+
+[node name="Exit3" type="Area2D" parent="Exits" index="2"]
+position = Vector2(2899, 2196)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_e2mgu")
+index = 2
+target_room = "caves_6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/Exit3" index="0"]
+position = Vector2(-57, -40)
+shape = SubResource("RectangleShape2D_bxr70")
+
+[node name="Marker2D" type="Marker2D" parent="Exits/Exit3" index="1"]
+position = Vector2(103, -244)

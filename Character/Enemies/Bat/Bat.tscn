@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://ih84f7d3a8je"]
+
+[ext_resource type="Script" path="res://Character/Enemies/Bat/Bat.gd" id="1_uvjet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgvbt"]
+size = Vector2(55, 20)
+
+[node name="Bat" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_uvjet")
+MOVE_SPEED = 500.0
+MOVE_TIME = 1.0
+MOVE_VARIANCE = 0.4
+SPAWN_WEIGHT = 1000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_kgvbt")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -9.0
+offset_right = 28.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.380392, 0.121569, 0.0941176, 1)

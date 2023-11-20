@@ -92,7 +92,7 @@ bg_color = Color(0.247059, 0.615686, 0.968627, 1)
 bg_color = Color(0.866667, 0.482353, 0.278431, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_14l80"]
-size = Vector2(275, 26)
+size = Vector2(26.5, 240)
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_mc5nm")

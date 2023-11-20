@@ -255,7 +255,6 @@ func assign_powerups(_current_powerup, _player: bool):
 					player_features_dict[key] = _current_powerup.player_resources_dict[key]
 				else:
 					player_features_dict[key] += _current_powerup.player_resources_dict[key]
-		player.update_features()
 	elif _current_powerup.MODIFY_PLAYER_VALUES:
 		_current_powerup.set_ball_features()
 		_current_powerup.set_player_features()
@@ -265,17 +264,15 @@ func assign_powerups(_current_powerup, _player: bool):
 					ball_features_dict[key] = _current_powerup.ball_resources_dict[key]
 				else:
 					ball_features_dict[key] += _current_powerup.ball_resources_dict[key]
-		ball.update_features()
 		for key in _current_powerup.player_resources_dict:
 			if key in player_features_dict:
 				if "jump" in key:
-					print(key)
+#					print(key)
 					continue
 				if _current_powerup.player_resources_dict[key] is bool:
 					player_features_dict[key] = _current_powerup.player_resources_dict[key]
 				else:
 					player_features_dict[key] += _current_powerup.player_resources_dict[key]
-		player.update_features()
 	else:
 		_current_powerup.set_ball_features()
 		for key in _current_powerup.ball_resources_dict:
@@ -284,12 +281,10 @@ func assign_powerups(_current_powerup, _player: bool):
 					ball_features_dict[key] = _current_powerup.ball_resources_dict[key]
 				else:
 					ball_features_dict[key] += _current_powerup.ball_resources_dict[key]
-		ball.update_features()
-	print(player.dash_speed)
 
 func set_ball_features():
 	reset_dictionaries()
-	print(player_features_dict)
+#	print(player_features_dict)
 #	print("Slot selected in set_ball_features " + str(slot_selected))
 #	can_dash = false
 #	can_vertical_dash = false
@@ -319,6 +314,8 @@ func set_ball_features():
 	for i in range(player_powerups.size()):
 		assign_powerups(player_powerups[i], true)
 	ball.sprite_canvas_item.set_modulate(current_ball.colour)
+	player.update_features()
+	ball.update_features()
 #	set_player_movement()
 #	set_ball_movement()
 

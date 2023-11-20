@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 	pass
 
 func save():
-	print(collected_items)
+#	print(collected_items)
 	var save_dict = {
 		"filename" : get_scene_file_path(),
 		"parent" : get_parent().get_path(),
@@ -24,7 +24,7 @@ func do_item_setup(_collected_items):
 	collected_items = _collected_items
 	items = get_children()
 	if collected_items.size() == 0:
-		print("Collected item size " + str(collected_items.size()))
+#		print("Collected item size " + str(collected_items.size()))
 		for item in items:
 			item.item_collected.connect(_on_item_collected)
 			collected_items[item.name] = [false]

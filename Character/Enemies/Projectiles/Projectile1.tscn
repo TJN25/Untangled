@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://dwjj5yilojq1p"]
+
+[ext_resource type="Script" path="res://Objects/HitboxComponent/hitbox_component.gd" id="1_nnoar"]
+[ext_resource type="Script" path="res://Character/Enemies/Projectiles/Projectile1.gd" id="1_snd64"]
+[ext_resource type="Script" path="res://Objects/Health/HealthComponent.gd" id="2_dqgm2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3n5h"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8xm3"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scfcg"]
+size = Vector2(16, 16)
+
+[node name="Projectile1" type="CharacterBody2D"]
+collision_layer = 17
+collision_mask = 6
+script = ExtResource("1_snd64")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 17
+collision_mask = 6
+script = ExtResource("1_nnoar")
+health_component = NodePath("../HealthComponent")
+hitbox_category = "projectile_1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_o3n5h")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("2_dqgm2")
+MAX_HEALTH = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_n8xm3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0.0235294, 1)
+
+[node name="Attack" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_scfcg")
+
+[connection signal="area_entered" from="Attack" to="." method="_on_attack_area_entered"]

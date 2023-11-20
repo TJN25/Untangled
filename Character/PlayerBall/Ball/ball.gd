@@ -89,12 +89,11 @@ func _on_nav_timer_timeout():
 func _on_hitbox_entered(area):
 	if area is HitboxComponent:
 		if state_machine.current_state.name != "BallFollow":
-			if area.hitbox_category == "brambles":
-				var attack = Attack.new()
-				attack.knockback_damage = 0
-				attack.attack_position = global_position
-				attack.attack_damage = ATTACK_DAMAGE
-				area.damage(attack)
+			var attack = Attack.new()
+			attack.knockback_damage = 0
+			attack.attack_position = global_position
+			attack.attack_damage = ATTACK_DAMAGE
+			area.damage(attack)
 
 func _on_is_knocked_back(knockback_damage, attack_position):
 	knocked_back = true

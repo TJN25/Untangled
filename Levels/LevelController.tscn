@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dn6tmvsy5alev"]
+[gd_scene load_steps=10 format=3 uid="uid://dn6tmvsy5alev"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.gd" id="1_1smxc"]
 [ext_resource type="PackedScene" uid="uid://ddhyn3c4rk67n" path="res://Levels/CavesRoom0.tscn" id="2_1evwt"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bqygte77t65ww" path="res://Levels/CavesRoom3.tscn" id="5_pfsdi"]
 [ext_resource type="PackedScene" uid="uid://dv8r6l5r0bgjr" path="res://Levels/CavesRoom4.tscn" id="6_bfel5"]
 [ext_resource type="PackedScene" uid="uid://id1grl4ylmm7" path="res://Levels/CavesRoom5.tscn" id="7_66h3k"]
+[ext_resource type="PackedScene" uid="uid://wg7tb5ttp3jm" path="res://Levels/CavesRoom6.tscn" id="8_axe5y"]
+[ext_resource type="PackedScene" uid="uid://qlml1m0rjklu" path="res://Levels/CavesRoom7.tscn" id="9_f55m3"]
 
 [node name="LevelController" type="Node2D"]
 script = ExtResource("1_1smxc")
@@ -16,7 +18,9 @@ rooms = {
 "caves_2": ExtResource("4_oi86w"),
 "caves_3": ExtResource("5_pfsdi"),
 "caves_4": ExtResource("6_bfel5"),
-"caves_5": ExtResource("7_66h3k")
+"caves_5": ExtResource("7_66h3k"),
+"caves_6": ExtResource("8_axe5y"),
+"caves_7": ExtResource("9_f55m3")
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

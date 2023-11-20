@@ -76,7 +76,7 @@ shape = SubResource("RectangleShape2D_nwxup")
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "energy_component")]
 collision_layer = 2
-collision_mask = 8
+collision_mask = 24
 script = ExtResource("9_erw1e")
 health_component = NodePath("../HealthComponent")
 energy_component = NodePath("../EnergyComponent")
@@ -96,7 +96,7 @@ MAX_HEALTH = 500.0
 [node name="Attackbox" type="Area2D" parent="."]
 position = Vector2(0, 10)
 collision_layer = 2
-collision_mask = 8
+collision_mask = 24
 script = ExtResource("13_ns4oi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attackbox"]

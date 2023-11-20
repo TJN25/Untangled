@@ -26,7 +26,7 @@ func _on_area_entered(area):
 	if area is HitboxComponent:
 		if area.hitbox_category == "player":
 			item_collected.emit(self)
-			print("removed")
+#			print("removed")
 			if feature == "ball_shell":
 				player.inventory.max_ball_slots += 1
 #				player.set_ball_features()

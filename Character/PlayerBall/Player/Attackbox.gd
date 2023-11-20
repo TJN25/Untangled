@@ -48,9 +48,8 @@ func _on_area_entered(area):
 	if attacking:
 		is_attack_area_entered.emit(attack_direction)
 		if area is HitboxComponent:
-			if area.hitbox_category == "brambles":
-				var attack = Attack.new()
-				attack.knockback_damage = 0
-				attack.attack_position = global_position
-				attack.attack_damage = 5
-				area.damage(attack)
+			var attack = Attack.new()
+			attack.knockback_damage = 0
+			attack.attack_position = global_position
+			attack.attack_damage = 5
+			area.damage(attack)

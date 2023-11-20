@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dpfjf0fmrv6db"]
+[gd_scene load_steps=28 format=3 uid="uid://dpfjf0fmrv6db"]
 
 [ext_resource type="PackedScene" uid="uid://cr21lu8m56mmb" path="res://Levels/Room.tscn" id="1_xt8ew"]
 [ext_resource type="Resource" uid="uid://bpxxcela8bw88" path="res://Character/PlayerBall/Inventory/Resources/balls/ExtraBall.tres" id="2_qkdyu"]
@@ -6,8 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://d4el66i48f5fd" path="res://Objects/Brambles/BramblesBlock/brambles_block.tscn" id="3_cx0nr"]
 [ext_resource type="Script" path="res://Objects/Item/item_component.gd" id="5_2frsd"]
 [ext_resource type="Texture2D" uid="uid://j3ci06tk5wv7" path="res://assests/sprites/ball_grey.png" id="7_iv2qw"]
+[ext_resource type="Resource" uid="uid://dbcb1q2bhdhok" path="res://Character/PlayerBall/Inventory/Resources/powerups/increase_knockback.tres" id="8_d2r5c"]
 [ext_resource type="Resource" uid="uid://s8liv3nwn86b" path="res://Character/PlayerBall/Inventory/Resources/powerups/do_wall_jump.tres" id="8_estkk"]
+[ext_resource type="Resource" uid="uid://mk0m1nyikmaf" path="res://Character/PlayerBall/Inventory/Resources/powerups/increase_jumps.tres" id="9_kx2pc"]
 [ext_resource type="Resource" uid="uid://ceydmtmb8rdpq" path="res://Character/PlayerBall/Inventory/Resources/balls/DashBall.tres" id="9_lb0lu"]
+[ext_resource type="Resource" uid="uid://dnwwk2y0ps7jt" path="res://Character/PlayerBall/Inventory/Resources/balls/KnockbackBall.tres" id="10_ufual"]
+[ext_resource type="PackedScene" uid="uid://ih84f7d3a8je" path="res://Character/Enemies/Bat/Bat.tscn" id="12_8gnoh"]
+[ext_resource type="PackedScene" uid="uid://w5a4rvtlvgu1" path="res://Character/Enemies/Boss1/Boss1.tscn" id="13_ybou7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sio4a"]
 radius = 5.15804
@@ -32,6 +37,15 @@ radius = 32.0156
 [sub_resource type="CircleShape2D" id="CircleShape2D_1gpxx"]
 radius = 32.0156
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3rou0"]
+radius = 32.0156
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h73m3"]
+radius = 32.0156
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sucr1"]
+radius = 32.0156
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlbft"]
 size = Vector2(20, 199)
 
@@ -48,7 +62,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_hf63d")
 
 [node name="Room" instance=ExtResource("1_xt8ew")]
-position = Vector2(1, 1)
+position = Vector2(-2, 1)
 room_name = "caves_1"
 
 [node name="NavigationLayer" parent="." index="0"]
@@ -147,6 +161,51 @@ texture = ExtResource("7_iv2qw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Items/DashBall" index="1"]
 shape = SubResource("CircleShape2D_1gpxx")
 
+[node name="IncreaseKnockback" type="Area2D" parent="Items" index="3" node_paths=PackedStringArray("player")]
+position = Vector2(1190, 720)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_2frsd")
+feature = "increase_knockback"
+player = NodePath("../../PlayerBallController")
+item_type = ExtResource("8_d2r5c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/IncreaseKnockback" index="0"]
+texture = ExtResource("7_iv2qw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/IncreaseKnockback" index="1"]
+shape = SubResource("CircleShape2D_3rou0")
+
+[node name="IncreaseJumps" type="Area2D" parent="Items" index="4" node_paths=PackedStringArray("player")]
+position = Vector2(944, 706)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_2frsd")
+feature = "increase_jumps"
+player = NodePath("../../PlayerBallController")
+item_type = ExtResource("9_kx2pc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/IncreaseJumps" index="0"]
+texture = ExtResource("7_iv2qw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/IncreaseJumps" index="1"]
+shape = SubResource("CircleShape2D_h73m3")
+
+[node name="SmashBall" type="Area2D" parent="Items" index="5" node_paths=PackedStringArray("player")]
+position = Vector2(1030, 704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("5_2frsd")
+feature = "KnockbackBall"
+player = NodePath("../../PlayerBallController")
+item_type = ExtResource("10_ufual")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/SmashBall" index="0"]
+texture = ExtResource("7_iv2qw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/SmashBall" index="1"]
+shape = SubResource("CircleShape2D_sucr1")
+
 [node name="Foreground" parent="." index="6"]
 layer_0/tile_data = PackedInt32Array()
 
@@ -204,7 +263,7 @@ index = 3
 target_room = "caves_3"
 
 [node name="Marker2D" type="Marker2D" parent="Exits/Exit3" index="0"]
-position = Vector2(282, -60)
+position = Vector2(278, -106)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exits/Exit3" index="1"]
 position = Vector2(84, 60.25)
@@ -217,3 +276,14 @@ scale = Vector2(8.39062, 3.73958)
 blend_mode = 1
 range_z_max = -1
 texture = SubResource("GradientTexture2D_sqv0b")
+
+[node name="Bat" parent="." index="12" node_paths=PackedStringArray("SPAWN_POINT") instance=ExtResource("12_8gnoh")]
+position = Vector2(1321, 665)
+SPAWN_POINT = NodePath("Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="Bat" index="2"]
+position = Vector2(-1, 1)
+
+[node name="Boss1" parent="." index="13" node_paths=PackedStringArray("player_ball_controller") instance=ExtResource("13_ybou7")]
+position = Vector2(1617, 642)
+player_ball_controller = NodePath("../PlayerBallController")

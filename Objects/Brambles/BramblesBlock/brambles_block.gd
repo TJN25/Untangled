@@ -22,7 +22,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if health_component.health <= health_component.max_health/2:
 		tilemap.modulate = Color(1, 0.5, 0.5, 1)
-
+	if health_component.health > 20:
+		health_component.health = health_component.max_health
 func _on_is_low_health():
 	if not active_brambles:
 		return
@@ -49,3 +50,9 @@ func _on_area_enetered(area):
 			attack.attack_damage = 0
 			area.damage(attack)
 			
+func _on_boss_dead(boss):
+	if not active_brambles:
+		return
+	active_brambles = false
+	is_low_health.emit(brambles_id)
+	queue_free()
